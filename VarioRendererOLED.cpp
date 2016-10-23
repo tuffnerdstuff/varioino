@@ -7,6 +7,10 @@
 #define OLED_RESET 4
 #define OLED_ADDRESS 0x3C
 #define OLED_INVERT false
+#define OLED_VALUELEN 9
+#define OLED_BARWIDTH 25
+#define OLED_PADDING 5
+#define OLED_MAXVARIO 10
 
 VarioRendererOLED::~VarioRendererOLED()
 {
@@ -23,28 +27,44 @@ void VarioRendererOLED::init()
 
 void VarioRendererOLED::renderValues(float vario, float altitude, float temp)
 {
+  //vario = -7;
   display->clearDisplay();
+
+  // ~~~~ BAR ~~~~
+  bool rising = vario >= 0;
+  float barSegment = ((SSD1306_LCDHEIGHT/2)/(float)OLED_MAXVARIO);
+  int barHeight = abs(vario * barSegment);
+  barHeight = barHeight > SSD1306_LCDHEIGHT/2 ? SSD1306_LCDHEIGHT/2 : barHeight;
+  int barStartY = rising ? SSD1306_LCDHEIGHT/2 - barHeight  : SSD1306_LCDHEIGHT/2;
+  
+  display->drawRect(0,0,OLED_BARWIDTH-OLED_PADDING,SSD1306_LCDHEIGHT,WHITE);
+  display->drawLine(0,SSD1306_LCDHEIGHT/2,OLED_BARWIDTH-OLED_PADDING-1,SSD1306_LCDHEIGHT/2,WHITE);
+  display->fillRect(0,barStartY,OLED_BARWIDTH-OLED_PADDING,barHeight,WHITE);
+
+  // ~~~~ VALUES ~~~~
   display->setTextSize(1);
-  display->setCursor(0,0);
 
   char lineString[25];
-  char valueString[10];
+  char valueString[OLED_VALUELEN];
   // VARIO
   float roundVario = roundNearest(vario,1);
+  display->setCursor(OLED_BARWIDTH,0);
   setTextColor(roundVario);
-  getFloatString(valueString, 10, roundVario, 1);
+  getFloatString(valueString, OLED_VALUELEN, roundVario, 1);
   sprintf(lineString,"VAR: %s m/s", valueString);
   display->println(lineString);
 
   // ALTITUDE
+  display->setCursor(OLED_BARWIDTH,27);
   setTextColor(altitude);
-  getFloatString(valueString, 10, altitude, 1);
+  getFloatString(valueString, OLED_VALUELEN, altitude, 1);
   sprintf(lineString,"ALT: %s m", valueString);
   display->println(lineString);
 
   // TEMPERATURE
+  display->setCursor(OLED_BARWIDTH,54);
   setTextColor(temp);
-  getFloatString(valueString, 10, temp, 1);
+  getFloatString(valueString, OLED_VALUELEN, temp, 1);
   sprintf(lineString,"TMP: %s %cC", valueString, (char)247);
   display->println(lineString);
   

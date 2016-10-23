@@ -33,7 +33,7 @@ void setup() {
   Serial.begin(SERIAL_BAUD);
 
   // Init
-  delay(1000);
+  delay(10);
   initSensor();
   initBeep();
   display.init();
