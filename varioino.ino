@@ -6,20 +6,18 @@
 #define SAMPLE_DELAY 10
 // I2C
 #include "Wire.h"
+// OLED
+#include "VarioRendererOLED.h"
+VarioRendererOLED display;
 // SENSOR
 #include "SparkFunBME280.h"
 BME280 sensor;
-// OLED
-#include "Adafruit_GFX.h"
-#include "Adafruit_SSD1306.h"
-#include <math.h>
-#define OLED_RESET 4
-#define OLED_INVERT false
-Adafruit_SSD1306 display(OLED_RESET);
+
+
 // Buzzer
 #include "toneAC.h"
 #define BEEP_DELAY 250L
-#define TONE_VOL 10
+#define TONE_VOL 0
 #define TONE_MULT 300
 
 
@@ -35,9 +33,10 @@ void setup() {
   Serial.begin(SERIAL_BAUD);
 
   // Init
+  delay(1000);
   initSensor();
   initBeep();
-  initOLED();
+  display.init();
 
   // set first sensor reading to avoid peak
   lastAvgAlt = sensor.readFloatAltitudeMeters();
@@ -65,7 +64,7 @@ void loop() {
 
     // Render
     renderBeep(avgAltPerSecond);
-    renderOLED(avgAltPerSecond, currAvgAlt, buffTemp.getAverage());
+    display.renderValues(avgAltPerSecond, currAvgAlt, buffTemp.getAverage());
 
     // Set values for next loop
     lastAvgAlt = currAvgAlt;
@@ -92,7 +91,7 @@ void initSensor()
   sensor.settings.humidOverSample = 0;
 
   // Initialize sensor
-  delay(10);
+  
   sensor.begin();
 }
 
@@ -109,128 +108,7 @@ void renderBeep(float vario)
   }
 }
 
-void initOLED()
-{
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
-  
-  display.clearDisplay();
-  display.display();
-}
-
-void renderOLED(float vario, float altitude, float temp)
-{
-  display.clearDisplay();
-  display.setTextSize(1);
-  display.setCursor(0,0);
-
-  char lineString[25];
-  char valueString[10];
-  // VARIO
-  float roundVario = roundNearest(vario,1);
-  setTextColor(roundVario);
-  getFloatString(valueString, 10, roundVario, 1);
-  sprintf(lineString,"VAR: %s m/s", valueString);
-  display.println(lineString);
-
-  // ALTITUDE
-  setTextColor(altitude);
-  getFloatString(valueString, 10, altitude, 1);
-  sprintf(lineString,"ALT: %s m", valueString);
-  display.println(lineString);
-
-  // TEMPERATURE
-  setTextColor(temp);
-  getFloatString(valueString, 10, temp, 1);
-  sprintf(lineString,"TMP: %s %cC", valueString, (char)247);
-  display.println(lineString);
-  
-  display.display();
-}
-
-void setTextColor(float value)
-{
-  if (OLED_INVERT && value < 0 )
-  {
-    display.setTextColor(BLACK, WHITE);
-  }
-  else
-  {
-    display.setTextColor(WHITE, BLACK);
-  }
-}
-
-void getFloatString(char *buff, int buffLen, float value, int n)
-{
-  
-  int intValue = abs((int)(value * pow(10,n)));
-  char sign = value >= 0 ? '+' : '-';
-  int digitCount = countDigits(intValue);
-  if (digitCount+3 > buffLen)
-  {
-    int idx;
-    for (idx = 0; idx < buffLen-2; idx++)
-    {
-      buff[idx] = '-';
-    }
-    buff[idx] = '\0';
-    
-  }
-  else
-  {
-
-    int i;
-    int count = 0;
-    buff[buffLen-1] = '\0';
-  
-    for (i = buffLen - 2; i > 0; i--)
-    {
-      if (count == n)
-      {
-        buff[i] = '.';
-      }
-      else if (intValue <= 0)
-      {
-        if (count <= n+1)
-        {
-          buff[i] = '0';
-        }
-        else
-        {
-          buff[i] = ' ';
-        }
-        
-      }
-      else
-      {
-        buff[i] = '0' + (intValue % 10);
-        intValue /= 10;
-      }
-
-      count++;
-    }
-
-    // Sign
-    buff[0]=sign;
-
-    
-  }
 
 
-}
 
-int countDigits(int num)
-{
-    int n = 0;
-    while(num) {
-        num /= 10;
-        n++;
-    }
-    return n;
-}
-
-float roundNearest(float val, int decim)
-{
-  float decimFact = pow(10,decim);
-  return roundf(val * decimFact) / decimFact;
-}
 
