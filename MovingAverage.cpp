@@ -46,6 +46,11 @@ float MovingAverage::getAverage()
     
 }
 
+bool MovingAverage::isFull()
+{
+  return cSize == cSlotsFilled;
+}
+
 inline int MovingAverage::positive_modulo(int i, int n)
 {
     return (i % n + n) % n;

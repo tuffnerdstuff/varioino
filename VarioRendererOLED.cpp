@@ -2,6 +2,8 @@
 #include <math.h>
 
 #include "VarioRendererOLED.h"
+// Logo
+#include "logo.h"
 
 
 #define OLED_RESET 4
@@ -11,6 +13,7 @@
 #define OLED_BARWIDTH 25
 #define OLED_PADDING 5
 #define OLED_MAXVARIO 10
+#define OLED_MINLOADINGTIME 3000
 
 VarioRendererOLED::~VarioRendererOLED()
 {
@@ -22,10 +25,25 @@ void VarioRendererOLED::init()
     display = new Adafruit_SSD1306(OLED_RESET);
     display->begin(SSD1306_SWITCHCAPVCC, OLED_ADDRESS);
     display->clearDisplay();
-    display->display();
+    
 }
 
-void VarioRendererOLED::renderValues(float vario, float altitude, float temp)
+bool VarioRendererOLED::renderLoading(unsigned long pollDelay)
+{
+  if (!loadingImagePainted)
+  {
+    loadingStartTime = millis();
+    display->drawBitmap(0, 0, header_data, SSD1306_LCDWIDTH, SSD1306_LCDHEIGHT, WHITE);
+    display->display();
+    loadingImagePainted = true; 
+  }
+
+  return (millis() - loadingStartTime < OLED_MINLOADINGTIME);
+
+  
+}
+
+void VarioRendererOLED::renderValues(float vario, float altitude, float temp, long renderDelay)
 {
   //vario = -7;
   display->clearDisplay();

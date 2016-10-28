@@ -5,7 +5,9 @@ class VarioRenderer
 {
     public:
     virtual void init() = 0;
-    virtual void renderValues(float vario, float altitude, float temp) = 0;
+    virtual bool renderLoading(unsigned long pollDelay) = 0;
+    virtual void renderValues(float vario, float altitude, float temp, long renderDelay) = 0;
+
     
 };
 

@@ -12,14 +12,20 @@ class VarioRendererOLED: public VarioRenderer
     public:
     ~VarioRendererOLED();
     void init();
-    void renderValues(float vario, float altitude, float temp);
+    bool renderLoading(unsigned long pollDelay);
+    void renderValues(float vario, float altitude, float temp, long renderDelay);
+
     
     private:
     Adafruit_SSD1306 *display;
+    unsigned long loadingStartTime = 0;
+    bool loadingImagePainted = false;
+    
     void setTextColor(float value);
     void getFloatString(char *buff, int buffLen, float value, int n);
     int countDigits(int num);
     float roundNearest(float val, int decim);
+    
 };
 
 #endif

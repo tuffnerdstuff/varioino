@@ -8,6 +8,7 @@ class MovingAverage
     ~MovingAverage();
     void push(float data);
     float getAverage();
+    bool isFull();
     
     private:
     int cSize;
