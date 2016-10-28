@@ -57,7 +57,10 @@ void loop() {
   if (!initDone)
   {
     // Make sure that all modules have been initialized
-    initDone = !display.renderLoading(SAMPLE_DELAY) && !buzzer.renderLoading(SAMPLE_DELAY) && buffAlt.isFull() && buffTemp.isFull();
+    bool logoDone = !display.renderLoading(SAMPLE_DELAY);
+    bool tonDone = !buzzer.renderLoading(SAMPLE_DELAY);
+    
+    initDone = logoDone && tonDone && buffAlt.isFull() && buffTemp.isFull();
   }
   
   if (timeSinceLastBeep >= RENDER_DELAY * 1000)
