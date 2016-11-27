@@ -4,6 +4,7 @@
 #define TONE_LENGTH 100
 #define TONE_VOL 1
 #define TONE_MULT 300
+#define MIN_VARIO 0.5
 
 void VarioRendererBuzzer::init()
 {
@@ -39,7 +40,7 @@ bool VarioRendererBuzzer::renderLoading(unsigned long pollDelay)
 void VarioRendererBuzzer::renderValues(float vario, float altitude, float temp, long renderDelay)
 {
 
-  if (vario > 0.3)
+  if (vario > MIN_VARIO)
   {
     toneAC(690 + (150 * vario), TONE_VOL, renderDelay * 0.6, true);
   }

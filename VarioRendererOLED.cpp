@@ -12,7 +12,7 @@
 #define OLED_VALUELEN 9
 #define OLED_BARWIDTH 25
 #define OLED_PADDING 5
-#define OLED_MAXVARIO 10
+#define OLED_MAXVARIO 2
 #define OLED_MINLOADINGTIME 2000
 
 VarioRendererOLED::~VarioRendererOLED()

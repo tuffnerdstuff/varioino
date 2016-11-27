@@ -1,18 +1,21 @@
 #ifndef MOVINGAVERAGE_H
 #define MOVINGAVERAGE_H
 
-class MovingAverage
+#include <stdio.h>
+#include "FloatFilter.h"
+
+class MovingAverage: public FloatFilter
 {
     public:
     MovingAverage(int size);
     ~MovingAverage();
-    void push(float data);
-    float getAverage();
-    bool isFull();
+    void pushValue(float value);
+    float getFilteredValue();
+    bool isReady();
     
     private:
     int cSize;
-    float *cBufferData;
+    float *cBufferData = NULL;
     int cNextFreeIndex;
     int cSlotsFilled;
     inline int positive_modulo(int i, int n);

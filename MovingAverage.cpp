@@ -1,10 +1,12 @@
 #include "MovingAverage.h"
+#include <stdio.h>
 #include <stdint.h>
 
 MovingAverage::MovingAverage(int size)
 {   
-    cSize = size;
+    
     cBufferData = new float[size];
+    cSize = (cBufferData != NULL) ? size : 0;
     cNextFreeIndex = 0;
     cSlotsFilled = 0;
 }
@@ -14,19 +16,22 @@ MovingAverage::~MovingAverage()
     delete[] cBufferData;
 }
 
-void MovingAverage::push(float data)
+void MovingAverage::pushValue(float data)
 {
-    cBufferData[cNextFreeIndex] = data;
-    
-    cNextFreeIndex = (cNextFreeIndex + 1) % cSize;
-    
-    if (cSlotsFilled < cSize)
+    if (cSize > 0)
     {
-        cSlotsFilled++;
+      cBufferData[cNextFreeIndex] = data;
+      
+      cNextFreeIndex = (cNextFreeIndex + 1) % cSize;
+      
+      if (cSlotsFilled < cSize)
+      {
+          cSlotsFilled++;
+      }
     }
 }
 
-float MovingAverage::getAverage()
+float MovingAverage::getFilteredValue()
 {
     float sum = 0;
     int count = cSlotsFilled < cSize ? cSlotsFilled : cSize;
@@ -46,7 +51,7 @@ float MovingAverage::getAverage()
     
 }
 
-bool MovingAverage::isFull()
+bool MovingAverage::isReady()
 {
   return cSize == cSlotsFilled;
 }

@@ -1,6 +1,7 @@
 // MAIN
 #include <stdint.h>
 #include "MovingAverage.h"
+#include "FloatFilterWeighed.h"
 // I2C
 #include "Wire.h"
 // OLED
@@ -14,17 +15,30 @@ VarioRendererBuzzer buzzer;
 
 
 #define SERIAL_BAUD 57600
-#define SAMPLES 25
+#define SAMPLES 50
 #define SAMPLE_DELAY 10L
 #define RENDER_DELAY 250L
+#define BUTTON_OK 13
+#define BUTTON_DEBOUNCE 20 // in ms
+
 
 // Sensor
 BME280 sensor;
 // Smoothing buffers
 MovingAverage buffAlt(SAMPLES);
-MovingAverage buffTemp(SAMPLES);
+//MovingAverage buffTemp(1);
+//FloatFilterWeighed buffAlt;
+FloatFilterWeighed buffTemp;
+
+// Buttons
+long lastOKPress = -1;
+
+// Values
+float groundAlt = 0;
 float lastAvgAlt = 0;
 unsigned long lastTime = 0;
+
+// init
 bool initDone = false;
 
 
@@ -35,6 +49,7 @@ void setup() {
 
   // Init
   delay(10);
+  initButtons();
   initSensor();
   buzzer.init();
   display.init();
@@ -47,8 +62,8 @@ void setup() {
 void loop() {
 
   // Push new sensor reading into ring buffer
-  buffAlt.push(sensor.readFloatAltitudeMeters());
-  buffTemp.push(sensor.readTempC());
+  buffAlt.pushValue(sensor.readFloatAltitudeMeters());
+  buffTemp.pushValue(sensor.readTempC());
 
   // time difference
   unsigned long currTime = micros();
@@ -60,14 +75,30 @@ void loop() {
     bool logoDone = !display.renderLoading(SAMPLE_DELAY);
     bool tonDone = !buzzer.renderLoading(SAMPLE_DELAY);
     
-    initDone = logoDone && tonDone && buffAlt.isFull() && buffTemp.isFull();
+    initDone = logoDone && tonDone && buffAlt.isReady() && buffTemp.isReady();
+  }
+  else // button handling
+  {
+    if (buttonPressed(BUTTON_OK))
+    {
+      if (millis() - lastOKPress >= BUTTON_DEBOUNCE)
+      {
+        // Pressed
+        groundAlt = buffAlt.getFilteredValue();
+      }
+    }
+    else
+    {
+      lastOKPress = millis();
+    }
+   
   }
   
   if (timeSinceLastBeep >= RENDER_DELAY * 1000)
   {
   
     // Get average altitude
-    float currAvgAlt = buffAlt.getAverage();
+    float currAvgAlt = buffAlt.getFilteredValue();
     float avgAltPerSecond = ((currAvgAlt - lastAvgAlt) / timeSinceLastBeep) * 1000000;
   
     // Serial.println(avgAltPerSecond,10);
@@ -75,8 +106,8 @@ void loop() {
     // Render
     if (initDone)
     {
-      buzzer.renderValues(avgAltPerSecond, currAvgAlt, buffTemp.getAverage(), RENDER_DELAY);
-      display.renderValues(avgAltPerSecond, currAvgAlt, buffTemp.getAverage(), RENDER_DELAY);
+      buzzer.renderValues(avgAltPerSecond, -1, -1, RENDER_DELAY);
+      display.renderValues(avgAltPerSecond, currAvgAlt - groundAlt, buffTemp.getFilteredValue(), RENDER_DELAY);
     }
 
     // Set values for next loop
@@ -98,8 +129,16 @@ void initSensor()
   sensor.settings.I2CAddress = 0x76;
   sensor.settings.runMode = 3; // Normal (auto poll)
   sensor.settings.tStandby = 0; // 0.5ms
-  sensor.settings.filter = 4; 
-  sensor.settings.tempOverSample = 5;
+  //filter can be off or number of FIR coefficients to use:
+  //  0, filter off
+  //  1, coefficients = 2
+  //  2, coefficients = 4
+  //  3, coefficients = 8
+  //  4, coefficients = 16
+  sensor.settings.filter = 16;
+  //  0, skipped
+  //  1 through 5, oversampling *1, *2, *4, *8, *16 respectively 
+  sensor.settings.tempOverSample = 1;
   sensor.settings.pressOverSample = 5;
   sensor.settings.humidOverSample = 0;
 
@@ -108,7 +147,15 @@ void initSensor()
   sensor.begin();
 }
 
+void initButtons()
+{
+  pinMode(BUTTON_OK,INPUT);
+  digitalWrite(BUTTON_OK,HIGH);
+}
 
-
+bool buttonPressed(int buttonPin)
+{
+  return !digitalRead(buttonPin);
+}
 
 
