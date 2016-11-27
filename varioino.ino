@@ -1,6 +1,6 @@
 // MAIN
 #include <stdint.h>
-#include "MovingAverage.h"
+#include "FloatFilterMovingAverage.h"
 #include "FloatFilterWeighed.h"
 // I2C
 #include "Wire.h"
@@ -25,8 +25,8 @@ VarioRendererBuzzer buzzer;
 // Sensor
 BME280 sensor;
 // Smoothing buffers
-MovingAverage buffAlt(SAMPLES);
-//MovingAverage buffTemp(1);
+FloatFilterMovingAverage buffAlt(SAMPLES);
+//FloatFilterMovingAverage buffTemp(1);
 //FloatFilterWeighed buffAlt;
 FloatFilterWeighed buffTemp;
 

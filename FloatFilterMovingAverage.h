@@ -4,11 +4,11 @@
 #include <stdio.h>
 #include "FloatFilter.h"
 
-class MovingAverage: public FloatFilter
+class FloatFilterMovingAverage: public FloatFilter
 {
     public:
-    MovingAverage(int size);
-    ~MovingAverage();
+    FloatFilterMovingAverage(int size);
+    ~FloatFilterMovingAverage();
     void pushValue(float value);
     float getFilteredValue();
     bool isReady();

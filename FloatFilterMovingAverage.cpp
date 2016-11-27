@@ -1,8 +1,8 @@
-#include "MovingAverage.h"
+#include "FloatFilterMovingAverage.h"
 #include <stdio.h>
 #include <stdint.h>
 
-MovingAverage::MovingAverage(int size)
+FloatFilterMovingAverage::FloatFilterMovingAverage(int size)
 {   
     
     cBufferData = new float[size];
@@ -11,12 +11,12 @@ MovingAverage::MovingAverage(int size)
     cSlotsFilled = 0;
 }
 
-MovingAverage::~MovingAverage()
+FloatFilterMovingAverage::~FloatFilterMovingAverage()
 {
     delete[] cBufferData;
 }
 
-void MovingAverage::pushValue(float data)
+void FloatFilterMovingAverage::pushValue(float data)
 {
     if (cSize > 0)
     {
@@ -31,7 +31,7 @@ void MovingAverage::pushValue(float data)
     }
 }
 
-float MovingAverage::getFilteredValue()
+float FloatFilterMovingAverage::getFilteredValue()
 {
     float sum = 0;
     int count = cSlotsFilled < cSize ? cSlotsFilled : cSize;
@@ -51,12 +51,12 @@ float MovingAverage::getFilteredValue()
     
 }
 
-bool MovingAverage::isReady()
+bool FloatFilterMovingAverage::isReady()
 {
   return cSize == cSlotsFilled;
 }
 
-inline int MovingAverage::positive_modulo(int i, int n)
+inline int FloatFilterMovingAverage::positive_modulo(int i, int n)
 {
     return (i % n + n) % n;
 }
