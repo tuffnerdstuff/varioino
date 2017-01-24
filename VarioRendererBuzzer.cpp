@@ -2,7 +2,7 @@
 #include "toneAC.h"
 
 #define TONE_LENGTH 100
-#define TONE_VOL 1
+#define TONE_VOL 10
 #define TONE_MULT 300
 #define MIN_VARIO 0.5
 
