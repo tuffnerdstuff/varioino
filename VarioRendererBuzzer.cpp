@@ -11,11 +11,11 @@ void VarioRendererBuzzer::init()
   // Buzzer's always ready to buzz :)
 }
 
-bool VarioRendererBuzzer::renderLoading(unsigned long pollDelay)
+void VarioRendererBuzzer::renderLoading()
 {
   if(initToneIndex >= initTonesLength)
   {
-   return false; 
+   return;
   }
   else if (!initToneStarted || millis() - lastToneStart >= TONE_LENGTH)
   {
@@ -31,8 +31,6 @@ bool VarioRendererBuzzer::renderLoading(unsigned long pollDelay)
       noToneAC();
     }
 
-    return true;
-    
   }
   
 }

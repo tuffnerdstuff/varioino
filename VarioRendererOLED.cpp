@@ -15,6 +15,10 @@
 #define OLED_MAXVARIO 2
 #define OLED_MINLOADINGTIME 2000
 
+VarioRendererOLED::VarioRendererOLED()
+{
+}
+
 VarioRendererOLED::~VarioRendererOLED()
 {
   delete display;
@@ -24,23 +28,23 @@ void VarioRendererOLED::init()
 {
     display = new Adafruit_SSD1306(OLED_RESET);
     display->begin(SSD1306_SWITCHCAPVCC, OLED_ADDRESS);
-    display->clearDisplay();
+    clearDisplay();
     
 }
 
-bool VarioRendererOLED::renderLoading(unsigned long pollDelay)
+void VarioRendererOLED::drawDisplay()
 {
-  if (!loadingImagePainted)
-  {
-    loadingStartTime = millis();
+	display->display();
+}
+
+void VarioRendererOLED::clearDisplay()
+{
+	display->clearDisplay();
+}
+
+void VarioRendererOLED::renderLoading()
+{
     display->drawBitmap(0, 0, header_data, SSD1306_LCDWIDTH, SSD1306_LCDHEIGHT, WHITE);
-    display->display();
-    loadingImagePainted = true; 
-  }
-
-  return (millis() - loadingStartTime < OLED_MINLOADINGTIME);
-
-  
 }
 
 void VarioRendererOLED::renderValues(float vario, float altitude, float temp, long renderDelay)

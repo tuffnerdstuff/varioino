@@ -1,7 +1,6 @@
 #include "ScreenInit.h"
-#include "logo.h"
 
-ScreenInit::ScreenInit(ScreenManager &manager, VarioRendererOLED &display)
+ScreenInit::ScreenInit(ScreenManager *manager, VarioRendererOLED *display)
 {
     this->manager = manager;
     this->display = display;
@@ -9,11 +8,12 @@ ScreenInit::ScreenInit(ScreenManager &manager, VarioRendererOLED &display)
 
 void ScreenInit::init()
 {
-    this->display->drawBitmap(header_data);
-    this->display->display();
+    display->clearDisplay();
+    display->renderLoading();
+    display->drawDisplay();
 }
 
-void ScreenInit::tick( lastTick )
+void ScreenInit::tick( long lastTick )
 {
     // NOP
 }

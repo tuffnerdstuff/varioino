@@ -7,7 +7,7 @@ class VarioRendererBuzzer: public VarioRenderer
 {
     public:
     void init();
-    bool renderLoading(unsigned long pollDelay);
+    void renderLoading();
     void renderValues(float vario, float altitude, float temp, long renderDelay);
 
     private:

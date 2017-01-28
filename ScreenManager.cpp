@@ -1,7 +1,10 @@
 #include "ScreenManager.h"
+#include "ScreenInit.h"
+#include "ScreenMain.h"
 
-ScreenManager::ScreenManager(VarioRendererOLED &display, VarioRendererBuzzer &buzzer, Buttons &buttons)
+ScreenManager::ScreenManager(VarioRendererOLED *display, VarioRendererBuzzer *buzzer, Buttons *buttons)
 {
+	this->screen = NULL;
     this->display = display;
     this->buzzer = buzzer;
     this->buttons = buttons;
@@ -43,7 +46,7 @@ void ScreenManager::setScreen(ScreenEnum newScreen)
     this->screen->init();
 }
 
-void ScreenManager::tick( lastTick )
+void ScreenManager::tick( long lastTick )
 {
     if (this->screen == NULL)
     {

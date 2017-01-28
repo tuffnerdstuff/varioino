@@ -10,9 +10,12 @@
 class VarioRendererOLED: public VarioRenderer
 {
     public:
+	VarioRendererOLED();
     ~VarioRendererOLED();
     void init();
-    bool renderLoading(unsigned long pollDelay);
+    void clearDisplay();
+    void drawDisplay();
+    void renderLoading();
     void renderValues(float vario, float altitude, float temp, long renderDelay);
 
     
