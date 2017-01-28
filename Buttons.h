@@ -14,7 +14,7 @@ public:
 	Buttons();
 	virtual ~Buttons();
 	void init();
-	void loop();
+	void tick();
 	bool isButtonPressed(Button button);
 private:
 	long lastLeftChange;

@@ -5,6 +5,7 @@
 #include "VarioRendererBuzzer.h"
 #include "Buttons.h"
 #include "Screen.h"
+#include "Sensor.h"
 
 class ScreenManager: public Screen
 {
@@ -13,14 +14,15 @@ class ScreenManager: public Screen
         VarioRendererOLED *display;
         VarioRendererBuzzer *buzzer;
         Buttons *buttons;
+        Sensor *sensor;
         
     public:
         enum ScreenEnum {INIT, MAIN, OPT};
     
-        ScreenManager(VarioRendererOLED *display, VarioRendererBuzzer *buzzer, Buttons *buttons);
+        ScreenManager(VarioRendererOLED *display, VarioRendererBuzzer *buzzer, Buttons *buttons, Sensor *sensor);
         ~ScreenManager();
         void init();
-        void tick( long lastTick );
+        void tick();
         void setScreen(ScreenEnum newScreen);
         
 };

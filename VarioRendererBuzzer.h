@@ -1,21 +1,20 @@
 #ifndef VARIORENDERERBUZZER_H
 #define VARIORENDERERBUZZER_H
 
-#include "VarioRenderer.h"
-
-class VarioRendererBuzzer: public VarioRenderer
+class VarioRendererBuzzer
 {
     public:
     void init();
-    void renderLoading();
-    void renderValues(float vario, float altitude, float temp, long renderDelay);
+    void setMelody(int *tones);
+    void setTone(int freq, int length);
+    void tick();
 
     private:
-    int initTones[13] = {660,660,0,660,0,510,660,0,770,0,0,0,380};
-    int initTonesLength = 13;
-    bool initToneStarted = false;
+    int tones[13] = {660,660,0,660,0,510,660,0,770,0,0,0,380};
+    int tonesLength = 13;
+    bool toneStarted = false;
     unsigned long lastToneStart = 0;
-    int initToneIndex = 0;
+    int toneIndex = 0;
 };
 
 #endif

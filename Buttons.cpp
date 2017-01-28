@@ -47,7 +47,7 @@ bool Buttons::isButtonPressed(Button button) {
 	}
 }
 
-void Buttons::loop() {
+void Buttons::tick() {
 	updateButton(BUTTON_OK, isOKPressed, lastOKChange);
 	updateButton(BUTTON_OK, isLeftPressed, lastLeftChange);
 	updateButton(BUTTON_OK, isRightPressed, lastRightChange);

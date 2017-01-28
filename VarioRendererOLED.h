@@ -3,11 +3,10 @@
 
 #include "Adafruit_GFX.h"
 #include "Adafruit_SSD1306.h"
-#include "VarioRenderer.h"
 
 
 
-class VarioRendererOLED: public VarioRenderer
+class VarioRendererOLED
 {
     public:
 	VarioRendererOLED();
@@ -16,7 +15,7 @@ class VarioRendererOLED: public VarioRenderer
     void clearDisplay();
     void drawDisplay();
     void renderLoading();
-    void renderValues(float vario, float altitude, float temp, long renderDelay);
+    void renderValues(float vario, float altitude, float temp);
 
     
     private:

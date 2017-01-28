@@ -47,7 +47,7 @@ void VarioRendererOLED::renderLoading()
     display->drawBitmap(0, 0, header_data, SSD1306_LCDWIDTH, SSD1306_LCDHEIGHT, WHITE);
 }
 
-void VarioRendererOLED::renderValues(float vario, float altitude, float temp, long renderDelay)
+void VarioRendererOLED::renderValues(float vario, float altitude, float temp)
 {
   //vario = -7;
   display->clearDisplay();

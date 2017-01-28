@@ -9,11 +9,13 @@ class ScreenInit: public Screen
 {
     public:
         ScreenInit(ScreenManager *manager, VarioRendererOLED *display);
+        ~ScreenInit();
         void init();
-        void tick( long lastTick );
+        void tick();
     private:
         ScreenManager *manager;
         VarioRendererOLED *display;
+        unsigned long startTime;
 };
 
 #endif

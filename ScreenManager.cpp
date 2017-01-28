@@ -2,12 +2,13 @@
 #include "ScreenInit.h"
 #include "ScreenMain.h"
 
-ScreenManager::ScreenManager(VarioRendererOLED *display, VarioRendererBuzzer *buzzer, Buttons *buttons)
+ScreenManager::ScreenManager(VarioRendererOLED *display, VarioRendererBuzzer *buzzer, Buttons *buttons, Sensor *sensor)
 {
 	this->screen = NULL;
     this->display = display;
     this->buzzer = buzzer;
     this->buttons = buttons;
+    this->sensor = sensor;
 }
 
 ScreenManager::~ScreenManager()
@@ -23,10 +24,6 @@ void ScreenManager::init()
 
 void ScreenManager::setScreen(ScreenEnum newScreen)
 {
-    if (newScreen == NULL)
-    {
-        return;
-    }
     
     // Delete old screen
     delete this->screen;
@@ -38,7 +35,7 @@ void ScreenManager::setScreen(ScreenEnum newScreen)
             this->screen = new ScreenInit(this, display);
             break;
         case MAIN:
-            this->screen = new ScreenMain(this, display, buzzer, buttons);
+            this->screen = new ScreenMain(this, display, buzzer, buttons, sensor);
             break;
     }
     
@@ -46,7 +43,7 @@ void ScreenManager::setScreen(ScreenEnum newScreen)
     this->screen->init();
 }
 
-void ScreenManager::tick( long lastTick )
+void ScreenManager::tick()
 {
     if (this->screen == NULL)
     {
@@ -54,5 +51,5 @@ void ScreenManager::tick( long lastTick )
     }
     
     // Tick the current screen
-    this->screen->tick( lastTick );
+    this->screen->tick();
 }

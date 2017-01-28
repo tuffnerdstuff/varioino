@@ -18,10 +18,11 @@
 #include "ScreenManager.h"
 
 #define DELAY_INIT 10
-#define DELAY_LOOP 10L
+#define DELAY_LOOP 250L
 VarioRendererOLED *display;
 VarioRendererBuzzer *buzzer;
 Buttons *buttons;
+Sensor *sensor;
 ScreenManager *scrMan;
 
 void setup() {
@@ -29,15 +30,27 @@ void setup() {
   // Init
   delay(DELAY_INIT);
 
+  sensor = new Sensor();
+  buttons = new Buttons();
   display = new VarioRendererOLED();
   buzzer = new VarioRendererBuzzer();
-  scrMan = new ScreenManager(display,buzzer,buttons);
+  scrMan = new ScreenManager(display,buzzer,buttons,sensor);
+
+
+  display->init();
+  buzzer->init();
+  buttons->init();
+  scrMan->init();
 
 }
 
 void loop() {
 
-  delay(DELAY_LOOP);
+	sensor->tick();
+	buttons->tick();
+	scrMan->tick();
+
+	delay(DELAY_LOOP);
 
 }
 

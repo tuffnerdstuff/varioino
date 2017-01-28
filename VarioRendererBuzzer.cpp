@@ -11,17 +11,24 @@ void VarioRendererBuzzer::init()
   // Buzzer's always ready to buzz :)
 }
 
-void VarioRendererBuzzer::renderLoading()
+void VarioRendererBuzzer::setMelody(int* tones) {
+}
+
+void VarioRendererBuzzer::setTone(int freq, int length) {
+
+}
+
+void VarioRendererBuzzer::tick()
 {
-  if(initToneIndex >= initTonesLength)
+  if(toneIndex >= tonesLength)
   {
    return;
   }
-  else if (!initToneStarted || millis() - lastToneStart >= TONE_LENGTH)
+  else if (!toneStarted || millis() - lastToneStart >= TONE_LENGTH)
   {
     lastToneStart = millis();
-    initToneStarted = true;
-    int freq = initTones[initToneIndex++];
+    toneStarted = true;
+    int freq = tones[toneIndex++];
     if (freq > 0)
     {
       toneAC(freq, TONE_VOL, TONE_LENGTH, true);
@@ -35,7 +42,7 @@ void VarioRendererBuzzer::renderLoading()
   
 }
 
-void VarioRendererBuzzer::renderValues(float vario, float altitude, float temp, long renderDelay)
+/*void VarioRendererBuzzer::renderValues(float vario, float altitude, float temp, long renderDelay)
 {
 
   if (vario > MIN_VARIO)
@@ -44,4 +51,5 @@ void VarioRendererBuzzer::renderValues(float vario, float altitude, float temp, 
   }
 
 }
+*/
 

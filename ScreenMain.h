@@ -13,18 +13,20 @@
 #include "VarioRendererOLED.h"
 #include "VarioRendererBuzzer.h"
 #include "Buttons.h"
+#include "Sensor.h"
 
 class ScreenMain: public Screen {
 public:
-	ScreenMain(ScreenManager *manager, VarioRendererOLED *display, VarioRendererBuzzer *buzzer, Buttons *buttons);
-	virtual ~ScreenMain();
+	ScreenMain(ScreenManager *manager, VarioRendererOLED *display, VarioRendererBuzzer *buzzer, Buttons *buttons, Sensor *sensor);
+	~ScreenMain();
 	void init();
-	void tick(long lastTick);
+	void tick();
 private:
 	ScreenManager *manager;
 	VarioRendererOLED *display;
 	VarioRendererBuzzer *buzzer;
 	Buttons *buttons;
+	Sensor *sensor;
 };
 
 #endif /* SCREENMAIN_H_ */
