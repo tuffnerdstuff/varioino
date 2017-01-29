@@ -43,7 +43,7 @@ Sensor::Sensor() {
 	/*********
 	 * FILTERS
 	 **********/
-	buffAlt = new FloatFilterMovingAverage(FILTER_SAMPLES);
+	buffAlt = new FloatFilterWeighed();
 
 	buffTemp = new FloatFilterWeighed();
 
@@ -85,8 +85,7 @@ void Sensor::tick() {
 }
 
 float Sensor::getAltitude() {
-	return 1;
-	//return buffAlt->getFilteredValue();
+	return buffAlt->getFilteredValue();
 }
 
 void Sensor::setAltitudeReference() {
@@ -94,16 +93,13 @@ void Sensor::setAltitudeReference() {
 }
 
 float Sensor::getVario() {
-	return 2;
-	//return currVario;
+	return currVario;
 }
 
 float Sensor::getRelativeAltitude() {
-	return 1.5;
-	//return getAltitude() - altitudeRef;
+	return getAltitude() - altitudeRef;
 }
 
 float Sensor::getTemp() {
-	return 3;
-	//return buffTemp->getFilteredValue();
+	return buffTemp->getFilteredValue();
 }

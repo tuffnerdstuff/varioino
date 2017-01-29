@@ -15,7 +15,6 @@
 #define SENSOR_H_
 
 #include "SparkFunBME280.h"
-#include "FloatFilterMovingAverage.h"
 #include "FloatFilterWeighed.h"
 #include "Arduino.h"
 
@@ -31,7 +30,7 @@ public:
 	float getTemp();
 private:
 	BME280 *sensor;
-	FloatFilterMovingAverage *buffAlt;
+	FloatFilterWeighed *buffAlt;
 	FloatFilterWeighed *buffTemp;
 	float altitudeRef = 0;
 	float currVario = 0;

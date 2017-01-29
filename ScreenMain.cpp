@@ -14,8 +14,8 @@ void ScreenMain::init() {
 
 void ScreenMain::tick() {
 	display->clearDisplay();
-	display->renderValues(1, 2, 5.12678);
-	//display->renderValues(sensor->getVario(), sensor->getRelativeAltitude(), sensor->getTemp());
+	//display->renderValues(1, 2, 5.12678);
+	display->renderValues(sensor->getVario(), sensor->getRelativeAltitude(), sensor->getTemp());
 	display->drawDisplay();
 }
 
