@@ -22,20 +22,20 @@
 class Sensor {
 public:
 	Sensor();
-	virtual ~Sensor();
-	virtual void tick();
-	virtual float getAltitude();
-	virtual float getRelativeAltitude();
-	virtual void setAltitudeReference(); // "Reset" relative altitude to 0
-	virtual float getVario(); // in m/s
-	virtual float getTemp();
+	~Sensor();
+	void tick();
+	float getAltitude();
+	float getRelativeAltitude();
+	void setAltitudeReference(); // "Reset" relative altitude to 0
+	float getVario(); // in m/s
+	float getTemp();
 private:
 	BME280 *sensor;
 	FloatFilterMovingAverage *buffAlt;
 	FloatFilterWeighed *buffTemp;
 	float altitudeRef = 0;
 	float currVario = 0;
-	float timeOfLastVario = 0;
+	unsigned long timeOfLastVario = 0;
 	float altitudeOfLastVario = 0;
 
 };

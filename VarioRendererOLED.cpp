@@ -50,7 +50,6 @@ void VarioRendererOLED::renderLoading()
 void VarioRendererOLED::renderValues(float vario, float altitude, float temp)
 {
   //vario = -7;
-  display->clearDisplay();
 
   // ~~~~ BAR ~~~~
   bool rising = vario >= 0;
@@ -90,7 +89,6 @@ void VarioRendererOLED::renderValues(float vario, float altitude, float temp)
   sprintf(lineString,"TMP: %s %cC", valueString, (char)247);
   display->println(lineString);
   
-  display->display();
 }
 
 // PRIVATE

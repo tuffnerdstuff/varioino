@@ -57,13 +57,14 @@ Sensor::~Sensor() {
 
 void Sensor::tick() {
 
+
 	// Push new sensor reading into filter
 	buffAlt->pushValue(sensor->readFloatAltitudeMeters());
 	buffTemp->pushValue(sensor->readTempC());
 
-	float currTime = micros();
+	unsigned long currTime = micros();
 	float currAlt = buffAlt->getFilteredValue();
-	float timeSinceLastVario = currTime - timeOfLastVario;
+	unsigned long timeSinceLastVario = currTime - timeOfLastVario;
 
 	// Calculate vario if VARIO_DELAY ms have passed
 	if (timeSinceLastVario > VARIO_DELAY * 1000L)
@@ -84,7 +85,8 @@ void Sensor::tick() {
 }
 
 float Sensor::getAltitude() {
-	return buffAlt->getFilteredValue();
+	return 1;
+	//return buffAlt->getFilteredValue();
 }
 
 void Sensor::setAltitudeReference() {
@@ -92,13 +94,16 @@ void Sensor::setAltitudeReference() {
 }
 
 float Sensor::getVario() {
-	return currVario;
+	return 2;
+	//return currVario;
 }
 
 float Sensor::getRelativeAltitude() {
-	return getAltitude() - altitudeRef;
+	return 1.5;
+	//return getAltitude() - altitudeRef;
 }
 
 float Sensor::getTemp() {
-	return buffTemp->getFilteredValue();
+	return 3;
+	//return buffTemp->getFilteredValue();
 }
