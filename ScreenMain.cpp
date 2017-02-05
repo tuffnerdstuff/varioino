@@ -67,17 +67,17 @@ void ScreenMain::renderValues(float vario, float altitude, float temp)
   float roundVario = roundNearest(vario,1);
   getFloatString(valueString, OLED_VALUELEN, roundVario, 1);
   sprintf(lineString,"VAR: %s m/s", valueString);
-  display->printString(lineString, OLED_BARWIDTH, 1, 1, false);
+  display->printString(lineString, OLED_BARWIDTH, 0, 1, false);
 
   // ALTITUDE
   getFloatString(valueString, OLED_VALUELEN, altitude, 1);
   sprintf(lineString,"ALT: %s m", valueString);
-  display->printString(lineString, OLED_BARWIDTH, 27, 1, false);
+  display->printString(lineString, OLED_BARWIDTH, 28, 1, false);
 
   // TEMPERATURE
   getFloatString(valueString, OLED_VALUELEN, temp, 1);
   sprintf(lineString,"TMP: %s %cC", valueString, (char)247);
-  display->printString(lineString, OLED_BARWIDTH, 54, 1, false);
+  display->printString(lineString, OLED_BARWIDTH, 57, 1, false);
 
 }
 
