@@ -8,7 +8,7 @@
 #include "Sensor.h"
 
 #define FILTER_SAMPLES 50
-#define VARIO_DELAY 250L
+#define VARIO_SAMPLE_TIME 250L
 
 Sensor::Sensor() {
 
@@ -43,9 +43,9 @@ Sensor::Sensor() {
 	/*********
 	 * FILTERS
 	 **********/
-	buffAlt = new FloatFilterWeighed();
+	buffAlt = new FloatFilterWeighed(0.1);
 
-	buffTemp = new FloatFilterWeighed();
+	buffTemp = new FloatFilterWeighed(0.025);
 
 }
 
@@ -53,6 +53,11 @@ Sensor::~Sensor() {
 	delete sensor;
 	delete buffAlt;
 	delete buffTemp;
+}
+
+unsigned long Sensor::getVarioSampleTime()
+{
+	return VARIO_SAMPLE_TIME;
 }
 
 void Sensor::tick() {
@@ -67,7 +72,7 @@ void Sensor::tick() {
 	unsigned long timeSinceLastVario = currTime - timeOfLastVario;
 
 	// Calculate vario if VARIO_DELAY ms have passed
-	if (timeSinceLastVario > VARIO_DELAY * 1000L)
+	if (timeSinceLastVario > VARIO_SAMPLE_TIME * 1000L)
 	{
 
 		// Calculate vario

@@ -18,7 +18,7 @@
 #include "ScreenManager.h"
 
 #define DELAY_INIT 10
-#define DELAY_LOOP 250L
+#define DELAY_LOOP 10L
 VarioRendererOLED *display;
 VarioRendererBuzzer *buzzer;
 Buttons *buttons;
@@ -48,9 +48,10 @@ void loop() {
 
 	sensor->tick();
 	buttons->tick();
+	buzzer->tick();
 	scrMan->tick();
 
-	delay(DELAY_LOOP);
+	//delay(DELAY_LOOP);
 
 }
 

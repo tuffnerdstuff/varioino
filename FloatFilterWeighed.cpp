@@ -1,11 +1,12 @@
 #include "FloatFilterWeighed.h"
 
-#define WEIGHT_CURRENT_VALUE 0.025F
-#define WEIGHT_LAST_VALUE 1.0F - WEIGHT_CURRENT_VALUE
+FloatFilterWeighed::FloatFilterWeighed(float currValWeight) {
+	this->currValWeight = currValWeight;
+}
 
 void FloatFilterWeighed::pushValue(float value)
 {
-    currValue = (currValue * (1.0F - WEIGHT_CURRENT_VALUE)) + (value * WEIGHT_CURRENT_VALUE);
+    currValue = (currValue * (1.0F - currValWeight)) + (value * currValWeight);
     if (!this->isReady()) initSamplesRead++;
 }
 
@@ -16,5 +17,6 @@ float FloatFilterWeighed::getFilteredValue()
 
 bool FloatFilterWeighed::isReady()
 {
-    return initSamplesRead * WEIGHT_CURRENT_VALUE >= 1.0F;
+    return initSamplesRead * currValWeight >= 1.0F;
 }
+

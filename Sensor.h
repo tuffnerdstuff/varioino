@@ -27,6 +27,7 @@ public:
 	float getRelativeAltitude();
 	void setAltitudeReference(); // "Reset" relative altitude to 0
 	float getVario(); // in m/s
+	unsigned long getVarioSampleTime();
 	float getTemp();
 private:
 	BME280 *sensor;

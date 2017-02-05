@@ -1,10 +1,8 @@
 #include "VarioRendererBuzzer.h"
 #include "toneAC.h"
 
-#define TONE_LENGTH 100
 #define TONE_VOL 10
-#define TONE_MULT 300
-#define MIN_VARIO 0.5
+#define TICK_LENGTH 200
 
 void VarioRendererBuzzer::init()
 {
@@ -12,33 +10,57 @@ void VarioRendererBuzzer::init()
 }
 
 void VarioRendererBuzzer::setMelody(int* tones) {
+
 }
 
-void VarioRendererBuzzer::setTone(int freq, int length) {
+void VarioRendererBuzzer::reset() {
+	toneStartTime = 0;
+	firstToneTick = true;
+	toneIndex = 0;
+}
 
+void VarioRendererBuzzer::setTone(unsigned int freq, unsigned int length) {
+
+	if (!isPlaying())
+	{
+		tones[0] = freq;
+		toneLengths[0] = length;
+		tonesCount = 1;
+		reset();
+	}
+}
+
+bool VarioRendererBuzzer::isPlaying() {
+	return toneIndex >= 0 && toneIndex < tonesCount;
 }
 
 void VarioRendererBuzzer::tick()
 {
-  if(toneIndex >= tonesLength)
+	if (isPlaying())
   {
-   return;
+	  if (!firstToneTick && millis() - toneStartTime >= toneLengths[toneIndex])
+	  {
+		  // tone end = next tone
+		  noToneAC();
+		  firstToneTick = true;
+		  toneIndex++;
+	  }
+	  else
+	  {
+		  if (firstToneTick)
+		  {
+			  // reset tone start time
+			  toneStartTime = millis();
+			  firstToneTick = false;
+		  }
+		  // continue current tone
+		  if (tones[toneIndex] > 0)
+		  {
+			  toneAC(tones[toneIndex], TONE_VOL, TICK_LENGTH, true);
+		  }
+	  }
   }
-  else if (!toneStarted || millis() - lastToneStart >= TONE_LENGTH)
-  {
-    lastToneStart = millis();
-    toneStarted = true;
-    int freq = tones[toneIndex++];
-    if (freq > 0)
-    {
-      toneAC(freq, TONE_VOL, TONE_LENGTH, true);
-    }
-    else
-    {
-      noToneAC();
-    }
 
-  }
   
 }
 
