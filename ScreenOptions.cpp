@@ -33,6 +33,6 @@ void ScreenOptions::tick() {
 
 	// Draw
 	display->clearDisplay();
-	display->printString("Test", 0,0,2);
+	display->printString("Test", 0,0,2,false);
 	display->drawDisplay();
 }

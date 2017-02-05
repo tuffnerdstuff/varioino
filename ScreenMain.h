@@ -27,6 +27,10 @@ private:
 	VarioRendererBuzzer *buzzer;
 	Buttons *buttons;
 	Sensor *sensor;
+	void renderValues(float vario, float altitude, float temp);
+	void getFloatString(char *buff, int buffLen, float value, int n);
+	int countDigits(int num);
+	float roundNearest(float val, int decim);
 };
 
 #endif /* SCREENMAIN_H_ */

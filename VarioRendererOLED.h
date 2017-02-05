@@ -4,8 +4,6 @@
 #include "Adafruit_GFX.h"
 #include "Adafruit_SSD1306.h"
 
-
-
 class VarioRendererOLED
 {
     public:
@@ -15,19 +13,16 @@ class VarioRendererOLED
     void clearDisplay();
     void drawDisplay();
     void renderLoading();
-    void renderValues(float vario, float altitude, float temp);
-    void printString(const char text[], int x, int y, unsigned int size);
+    void printString(const char text[], int x, int y, unsigned int size, bool invert);
+    void drawRect(int x, int y, int w, int h);
+    void drawLine(int x0, int y0, int x1, int y1);
+    void fillRect(int x, int y, int w, int h);
+    int getScreenHeight();
+    int getScreenWidth();
 
     
     private:
     Adafruit_SSD1306 *display;
-    unsigned long loadingStartTime = 0;
-    bool loadingImagePainted = false;
-    
-    void setTextColor(float value);
-    void getFloatString(char *buff, int buffLen, float value, int n);
-    int countDigits(int num);
-    float roundNearest(float val, int decim);
     
 };
 
