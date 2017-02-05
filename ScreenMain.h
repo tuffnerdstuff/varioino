@@ -10,21 +10,21 @@
 
 #include "Screen.h"
 #include "ScreenManager.h"
-#include "VarioRendererOLED.h"
-#include "VarioRendererBuzzer.h"
 #include "Buttons.h"
+#include "DisplayOLED.h"
 #include "Sensor.h"
+#include "SpeakerPWM.h"
 
 class ScreenMain: public Screen {
 public:
-	ScreenMain(ScreenManager *manager, VarioRendererOLED *display, VarioRendererBuzzer *buzzer, Buttons *buttons, Sensor *sensor);
+	ScreenMain(ScreenManager *manager, DisplayOLED *display, SpeakerPWM *buzzer, Buttons *buttons, Sensor *sensor);
 	~ScreenMain();
 	void init();
 	void tick();
 private:
 	ScreenManager *manager;
-	VarioRendererOLED *display;
-	VarioRendererBuzzer *buzzer;
+	DisplayOLED *display;
+	SpeakerPWM *buzzer;
 	Buttons *buttons;
 	Sensor *sensor;
 	void renderValues(float vario, float altitude, float temp);

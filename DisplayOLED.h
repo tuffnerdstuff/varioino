@@ -4,11 +4,11 @@
 #include "Adafruit_GFX.h"
 #include "Adafruit_SSD1306.h"
 
-class VarioRendererOLED
+class DisplayOLED
 {
     public:
-	VarioRendererOLED();
-    ~VarioRendererOLED();
+	DisplayOLED();
+    ~DisplayOLED();
     void init();
     void clearDisplay();
     void drawDisplay();

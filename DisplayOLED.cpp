@@ -1,24 +1,24 @@
+#include "DisplayOLED.h"
+
 #include <stdint.h>
 #include <math.h>
 
-#include "VarioRendererOLED.h"
-// Logo
 #include "logo.h"
 
 
 #define OLED_RESET 4
 #define OLED_ADDRESS 0x3C
 
-VarioRendererOLED::VarioRendererOLED()
+DisplayOLED::DisplayOLED()
 {
 }
 
-VarioRendererOLED::~VarioRendererOLED()
+DisplayOLED::~DisplayOLED()
 {
   delete display;
 }
 
-void VarioRendererOLED::init()
+void DisplayOLED::init()
 {
     display = new Adafruit_SSD1306(OLED_RESET);
     display->begin(SSD1306_SWITCHCAPVCC, OLED_ADDRESS);
@@ -26,17 +26,17 @@ void VarioRendererOLED::init()
     
 }
 
-void VarioRendererOLED::drawDisplay()
+void DisplayOLED::drawDisplay()
 {
 	display->display();
 }
 
-void VarioRendererOLED::clearDisplay()
+void DisplayOLED::clearDisplay()
 {
 	display->clearDisplay();
 }
 
-void VarioRendererOLED::renderLoading()
+void DisplayOLED::renderLoading()
 {
     display->drawBitmap(0, 0, header_data, SSD1306_LCDWIDTH, SSD1306_LCDHEIGHT, WHITE);
 }
@@ -44,7 +44,7 @@ void VarioRendererOLED::renderLoading()
 
 // PRIVATE
 
-void VarioRendererOLED::printString(const char text[], int x, int y,
+void DisplayOLED::printString(const char text[], int x, int y,
 		unsigned int size, bool invert) {
 
 	if ( invert )
@@ -61,22 +61,22 @@ void VarioRendererOLED::printString(const char text[], int x, int y,
 	display->println(text);
 }
 
-int VarioRendererOLED::getScreenHeight() {
+int DisplayOLED::getScreenHeight() {
 	return SSD1306_LCDHEIGHT;
 }
 
-int VarioRendererOLED::getScreenWidth() {
+int DisplayOLED::getScreenWidth() {
 	return SSD1306_LCDWIDTH;
 }
 
-void VarioRendererOLED::drawRect(int x, int y, int w, int h) {
+void DisplayOLED::drawRect(int x, int y, int w, int h) {
 	display->drawRect(x, y, w, h, WHITE);
 }
 
-void VarioRendererOLED::drawLine(int x0, int y0, int x1, int y1) {
+void DisplayOLED::drawLine(int x0, int y0, int x1, int y1) {
 	display->drawLine(x0, y0, x1, y1, WHITE);
 }
 
-void VarioRendererOLED::fillRect(int x, int y, int w, int h) {
+void DisplayOLED::fillRect(int x, int y, int w, int h) {
 	display->fillRect(x, y, w, h, WHITE);
 }

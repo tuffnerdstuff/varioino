@@ -3,7 +3,7 @@
 #include "ScreenMain.h"
 #include "ScreenOptions.h"
 
-ScreenManager::ScreenManager(VarioRendererOLED *display, VarioRendererBuzzer *buzzer, Buttons *buttons, Sensor *sensor)
+ScreenManager::ScreenManager(DisplayOLED *display, SpeakerPWM *buzzer, Buttons *buttons, Sensor *sensor)
 {
 	this->screen = NULL;
     this->display = display;

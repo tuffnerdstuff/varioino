@@ -1,25 +1,26 @@
-#include "VarioRendererBuzzer.h"
+#include "SpeakerPWM.h"
+
 #include "toneAC.h"
 
 #define TONE_VOL 10
 #define TICK_LENGTH 200
 
-void VarioRendererBuzzer::init()
+void SpeakerPWM::init()
 {
   // Buzzer's always ready to buzz :)
 }
 
-void VarioRendererBuzzer::setMelody(int* tones) {
-
+void SpeakerPWM::setMelody(int* tones) {
+	// TODO: implement setMelody
 }
 
-void VarioRendererBuzzer::reset() {
+void SpeakerPWM::reset() {
 	toneStartTime = 0;
 	firstToneTick = true;
 	toneIndex = 0;
 }
 
-void VarioRendererBuzzer::setTone(unsigned int freq, unsigned int length) {
+void SpeakerPWM::setTone(unsigned int freq, unsigned int length) {
 
 	if (!isPlaying())
 	{
@@ -30,11 +31,11 @@ void VarioRendererBuzzer::setTone(unsigned int freq, unsigned int length) {
 	}
 }
 
-bool VarioRendererBuzzer::isPlaying() {
+bool SpeakerPWM::isPlaying() {
 	return toneIndex >= 0 && toneIndex < tonesCount;
 }
 
-void VarioRendererBuzzer::tick()
+void SpeakerPWM::tick()
 {
 	if (isPlaying())
   {

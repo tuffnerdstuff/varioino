@@ -7,7 +7,11 @@
 
 #include "ScreenOptions.h"
 
-ScreenOptions::ScreenOptions(ScreenManager *manager, VarioRendererOLED *display, VarioRendererBuzzer *buzzer, Buttons *buttons, Sensor *sensor) {
+#define BAR_HEIGHT 11
+#define BAR_PADDING 2
+#define MARGIN 5
+
+ScreenOptions::ScreenOptions(ScreenManager *manager, DisplayOLED *display, SpeakerPWM *buzzer, Buttons *buttons, Sensor *sensor) {
 	this->manager = manager;
 	this->display = display;
 	this->buzzer = buzzer;
@@ -26,13 +30,50 @@ void ScreenOptions::init() {
 void ScreenOptions::tick() {
 
 	// Test Buttons
-	if (buttons->isButtonPressed(Buttons::OK) && buttons->isButtonChanged(Buttons::OK))
+	bool isOKPressed = buttons->isButtonPressed(Buttons::OK) && buttons->isButtonChanged(Buttons::OK);
+	bool isLeftPressed = buttons->isButtonPressed(Buttons::LEFT) && buttons->isButtonChanged(Buttons::LEFT);
+	bool isRightPressed = buttons->isButtonPressed(Buttons::RIGHT) && buttons->isButtonChanged(Buttons::RIGHT);
+
+	// Move cursor
+	int curDir = 0;
+	if (isLeftPressed)
 	{
-		manager->setScreen(ScreenManager::MAIN);
+		curDir = -1;
+	}
+	else if(isRightPressed)
+	{
+		curDir = 1;
+	}
+	selectedIndex = (selectedIndex + curDir) % entriesLength;
+
+	// Option selected?
+	switch(selectedIndex)
+	{
+		case 0:
+			sensor->setAltitudeReference();
+			break;
+		case 1:
+			break;
+		case 2:
+			if (isOKPressed)
+			{
+				manager->setScreen(ScreenManager::MAIN);
+				return;
+			}
+			break;
+
 	}
 
 	// Draw
 	display->clearDisplay();
-	display->printString("Test", 0,0,2,false);
+	for (int i = 0; i < entriesLength; ++i) {
+		int x = MARGIN;
+		int y = MARGIN + i*BAR_HEIGHT;
+		bool isHighlighted = i == selectedIndex;
+		if (isHighlighted) {
+			display->fillRect(0, y-BAR_PADDING, display->getScreenWidth(), BAR_HEIGHT);
+		}
+		display->printString(entries[i], x,y,1,isHighlighted);
+	}
 	display->drawDisplay();
 }

@@ -6,7 +6,7 @@
 #define OLED_PADDING 5
 #define OLED_MAXVARIO 2
 
-ScreenMain::ScreenMain(ScreenManager *manager, VarioRendererOLED *display, VarioRendererBuzzer *buzzer, Buttons *buttons, Sensor *sensor) {
+ScreenMain::ScreenMain(ScreenManager *manager, DisplayOLED *display, SpeakerPWM *buzzer, Buttons *buttons, Sensor *sensor) {
 	this->manager = manager;
 	this->display = display;
 	this->buzzer = buzzer;
@@ -67,17 +67,17 @@ void ScreenMain::renderValues(float vario, float altitude, float temp)
   float roundVario = roundNearest(vario,1);
   getFloatString(valueString, OLED_VALUELEN, roundVario, 1);
   sprintf(lineString,"VAR: %s m/s", valueString);
-  display->printString(lineString, OLED_BARWIDTH, 0, 1, false);
+  display->printString(lineString, OLED_BARWIDTH, 1, 1, false);
 
   // ALTITUDE
   getFloatString(valueString, OLED_VALUELEN, altitude, 1);
   sprintf(lineString,"ALT: %s m", valueString);
-  display->printString(lineString, OLED_BARWIDTH, 0, 27, false);
+  display->printString(lineString, OLED_BARWIDTH, 27, 1, false);
 
   // TEMPERATURE
   getFloatString(valueString, OLED_VALUELEN, temp, 1);
   sprintf(lineString,"TMP: %s %cC", valueString, (char)247);
-  display->printString(lineString, OLED_BARWIDTH, 0, 54, false);
+  display->printString(lineString, OLED_BARWIDTH, 54, 1, false);
 
 }
 

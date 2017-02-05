@@ -1,7 +1,7 @@
 #include "ScreenInit.h"
 #define DURATION 3000
 
-ScreenInit::ScreenInit(ScreenManager *manager, VarioRendererOLED *display)
+ScreenInit::ScreenInit(ScreenManager *manager, DisplayOLED *display)
 {
     this->manager = manager;
     this->display = display;

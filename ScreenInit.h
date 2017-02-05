@@ -1,20 +1,20 @@
 #ifndef SCREENINIT_H
 #define SCREENINIT_H
 
+#include "DisplayOLED.h"
 #include "Screen.h"
 #include "ScreenManager.h"
-#include "VarioRendererOLED.h"
 
 class ScreenInit: public Screen
 {
     public:
-        ScreenInit(ScreenManager *manager, VarioRendererOLED *display);
+        ScreenInit(ScreenManager *manager, DisplayOLED *display);
         ~ScreenInit();
         void init();
         void tick();
     private:
         ScreenManager *manager;
-        VarioRendererOLED *display;
+        DisplayOLED *display;
         unsigned long startTime;
 };
 

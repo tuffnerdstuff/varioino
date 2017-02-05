@@ -7,20 +7,19 @@
 // I2C
 #include "Wire.h"
 // OLED
-#include "VarioRendererOLED.h"
-// BUZZER
-#include "VarioRendererBuzzer.h"
-// SENSOR
 #include "SparkFunBME280.h"
+
+#include "DisplayOLED.h"
 // SCREEN MANAGER
 
 
 #include "ScreenManager.h"
+#include "SpeakerPWM.h"
 
 #define DELAY_INIT 10
 #define DELAY_LOOP 10L
-VarioRendererOLED *display;
-VarioRendererBuzzer *buzzer;
+DisplayOLED *display;
+SpeakerPWM *buzzer;
 Buttons *buttons;
 Sensor *sensor;
 ScreenManager *scrMan;
@@ -32,8 +31,8 @@ void setup() {
 
   sensor = new Sensor();
   buttons = new Buttons();
-  display = new VarioRendererOLED();
-  buzzer = new VarioRendererBuzzer();
+  display = new DisplayOLED();
+  buzzer = new SpeakerPWM();
   scrMan = new ScreenManager(display,buzzer,buttons,sensor);
 
 

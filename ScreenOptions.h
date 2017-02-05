@@ -10,23 +10,26 @@
 
 #include "Screen.h"
 #include "ScreenManager.h"
-#include "VarioRendererOLED.h"
-#include "VarioRendererBuzzer.h"
 #include "Buttons.h"
+#include "DisplayOLED.h"
 #include "Sensor.h"
+#include "SpeakerPWM.h"
 
 class ScreenOptions: public Screen {
 public:
-	ScreenOptions(ScreenManager *manager, VarioRendererOLED *display, VarioRendererBuzzer *buzzer, Buttons *buttons, Sensor *sensor);
+	ScreenOptions(ScreenManager *manager, DisplayOLED *display, SpeakerPWM *buzzer, Buttons *buttons, Sensor *sensor);
 	virtual ~ScreenOptions();
 	void init();
 	void tick();
 private:
 	ScreenManager *manager;
-	VarioRendererOLED *display;
-	VarioRendererBuzzer *buzzer;
+	DisplayOLED *display;
+	SpeakerPWM *buzzer;
 	Buttons *buttons;
 	Sensor *sensor;
+	char* entries[3] = {"Reset Altitude", "Volume", "Exit"};
+	int entriesLength = 3;
+	int selectedIndex = 0;
 
 };
 

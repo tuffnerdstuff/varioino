@@ -1,7 +1,7 @@
 #ifndef VARIORENDERERBUZZER_H
 #define VARIORENDERERBUZZER_H
 
-class VarioRendererBuzzer
+class SpeakerPWM
 {
     public:
     void init();

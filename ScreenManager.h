@@ -1,18 +1,18 @@
 #ifndef SCREENMANAGER_H
 #define SCREENMANAGER_H
 
-#include "VarioRendererOLED.h"
-#include "VarioRendererBuzzer.h"
 #include "Buttons.h"
+#include "DisplayOLED.h"
 #include "Screen.h"
 #include "Sensor.h"
+#include "SpeakerPWM.h"
 
 class ScreenManager: public Screen
 {
     private:
         Screen *screen;
-        VarioRendererOLED *display;
-        VarioRendererBuzzer *buzzer;
+        DisplayOLED *display;
+        SpeakerPWM *buzzer;
         Buttons *buttons;
         Sensor *sensor;
         unsigned long lastScreenChangeTime = 0;
@@ -20,7 +20,7 @@ class ScreenManager: public Screen
     public:
         enum ScreenEnum {INIT, MAIN, OPT};
     
-        ScreenManager(VarioRendererOLED *display, VarioRendererBuzzer *buzzer, Buttons *buttons, Sensor *sensor);
+        ScreenManager(DisplayOLED *display, SpeakerPWM *buzzer, Buttons *buttons, Sensor *sensor);
         ~ScreenManager();
         void init();
         void tick();
