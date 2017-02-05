@@ -8,6 +8,7 @@ ScreenMain::ScreenMain(ScreenManager *manager, VarioRendererOLED *display, Vario
 	this->buzzer = buzzer;
 	this->buttons = buttons;
 	this->sensor = sensor;
+
 }
 
 void ScreenMain::init() {
@@ -16,9 +17,20 @@ void ScreenMain::init() {
 
 void ScreenMain::tick() {
 
+	// OPT Button pressed?
+	if (buttons->isButtonPressed(Buttons::OK) && buttons->isButtonChanged(Buttons::OK))
+	{
+		manager->setScreen(ScreenManager::OPT);
+	}
+
 	// Display
 	display->clearDisplay();
 	display->renderValues(sensor->getVario(), sensor->getRelativeAltitude(), sensor->getTemp());
+
+	// debug button
+	display->printString(buttons->isButtonPressed(Buttons::OK)?"P=YES":"P=NO", 0, 0, 1);
+	display->printString(buttons->isButtonChanged(Buttons::OK)?"C=YES":"C=NO", 0, 5, 1);
+
 	display->drawDisplay();
 
 	// Buzzer

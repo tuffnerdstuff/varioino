@@ -1,6 +1,7 @@
 #include "ScreenManager.h"
 #include "ScreenInit.h"
 #include "ScreenMain.h"
+#include "ScreenOptions.h"
 
 ScreenManager::ScreenManager(VarioRendererOLED *display, VarioRendererBuzzer *buzzer, Buttons *buttons, Sensor *sensor)
 {
@@ -37,10 +38,16 @@ void ScreenManager::setScreen(ScreenEnum newScreen)
         case MAIN:
             this->screen = new ScreenMain(this, display, buzzer, buttons, sensor);
             break;
+        case OPT:
+        	this->screen = new ScreenOptions(this, display, buzzer, buttons, sensor);
+			break;
     }
     
+
     // Init new screen
     this->screen->init();
+
+
 }
 
 void ScreenManager::tick()

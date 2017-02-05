@@ -180,4 +180,9 @@ float VarioRendererOLED::roundNearest(float val, int decim)
   return roundf(val * decimFact) / decimFact;
 }
 
-
+void VarioRendererOLED::printString(const char text[], int x, int y,
+		unsigned int size) {
+	display->setTextSize(size);
+	display->setCursor(x, y);
+	display->println(text);
+}

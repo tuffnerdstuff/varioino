@@ -15,6 +15,7 @@ class ScreenManager: public Screen
         VarioRendererBuzzer *buzzer;
         Buttons *buttons;
         Sensor *sensor;
+        unsigned long lastScreenChangeTime = 0;
         
     public:
         enum ScreenEnum {INIT, MAIN, OPT};

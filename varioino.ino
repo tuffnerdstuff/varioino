@@ -39,7 +39,6 @@ void setup() {
 
   display->init();
   buzzer->init();
-  buttons->init();
   scrMan->init();
 
 }

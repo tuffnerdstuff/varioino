@@ -8,24 +8,27 @@
 #ifndef BUTTONS_H_
 #define BUTTONS_H_
 
+#include <stdio.h>
+#include "Button.h"
+
+#define BUTTON_LEFT 11
+#define BUTTON_RIGHT 12
+#define BUTTON_OK 13
+
 class Buttons {
 public:
-	enum Button{OK,LEFT,RIGHT};
+	enum ButtonIndex{OK,LEFT,RIGHT};
 	Buttons();
 	virtual ~Buttons();
-	void init();
 	void tick();
-	bool isButtonPressed(Button button);
+	bool isButtonChanged(ButtonIndex button);
+	bool isButtonPressed(ButtonIndex button);
 private:
-	long lastLeftChange;
-	long lastRightChange;
-	long lastOKChange;
-	bool isLeftPressed;
-	bool isRightPressed;
-	bool isOKPressed;
-	bool isPinTriggered(int buttonPin);
-	void updateButton(int pin, bool& buttonState, long& lastChangeTime);
-	void initButtonPin(int buttonPin);
+	Button btnLeft = Button(BUTTON_LEFT);
+	Button btnRight = Button(BUTTON_RIGHT);
+	Button btnOK = Button(BUTTON_OK);
+	Button& getButton(ButtonIndex button);
+
 };
 
 #endif /* BUTTONS_H_ */

@@ -16,6 +16,7 @@ class VarioRendererOLED
     void drawDisplay();
     void renderLoading();
     void renderValues(float vario, float altitude, float temp);
+    void printString(const char text[], int x, int y, unsigned int size);
 
     
     private:
