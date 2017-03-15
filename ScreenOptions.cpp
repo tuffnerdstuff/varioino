@@ -45,6 +45,7 @@ void ScreenOptions::tick() {
 		curDir = 1;
 	}
 	selectedIndex = (selectedIndex + curDir) % entriesLength;
+    selectedIndex = (selectedIndex < 0) ? 0 : selectedIndex; // Negative correction
 
 	// Option selected?
 	switch(selectedIndex)
