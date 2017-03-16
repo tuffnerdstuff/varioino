@@ -45,25 +45,26 @@ void ScreenOptions::tick() {
 		curDir = 1;
 	}
 	selectedIndex = (selectedIndex + curDir) % entriesLength;
-    selectedIndex = (selectedIndex < 0) ? 0 : selectedIndex; // Negative correction
+    selectedIndex = (selectedIndex < 0) ? entriesLength - 1 : selectedIndex; // Negative correction
 
 	// Option selected?
-	switch(selectedIndex)
-	{
-		case 0:
-			sensor->setAltitudeReference();
-			break;
-		case 1:
-			break;
-		case 2:
-			if (isOKPressed)
-			{
-				manager->setScreen(ScreenManager::MAIN);
-				return;
-			}
-			break;
+    if (isOKPressed)
+    {
+    	switch(selectedIndex)
+    	{
+    	case 0:
+    		sensor->setAltitudeReference();
+    		manager->setScreen(ScreenManager::MAIN);
+    		break;
+    	case 1:
+    		break;
+    	case 2:
 
-	}
+    		manager->setScreen(ScreenManager::MAIN);
+    		break;
+
+    	}
+    }
 
 	// Draw
 	display->clearDisplay();
