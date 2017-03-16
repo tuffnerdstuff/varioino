@@ -5,3 +5,8 @@
 /sources.mk
 /subdir.mk
 /varioino/
+*.d
+*.o
+*.elf
+*.hex
+/arduino.ar
