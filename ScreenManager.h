@@ -7,7 +7,7 @@
 #include "Sensor.h"
 #include "SpeakerPWM.h"
 
-class ScreenManager: public Screen
+class ScreenManager
 {
     private:
         Screen *screen;
@@ -18,7 +18,7 @@ class ScreenManager: public Screen
         unsigned long lastScreenChangeTime = 0;
         
     public:
-        enum ScreenEnum {INIT, MAIN, OPT};
+        enum ScreenEnum {INIT, MAIN, OPT, VOL};
     
         ScreenManager(DisplayOLED *display, SpeakerPWM *buzzer, Buttons *buttons, Sensor *sensor);
         ~ScreenManager();

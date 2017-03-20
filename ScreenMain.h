@@ -18,7 +18,6 @@
 class ScreenMain: public Screen {
 public:
 	ScreenMain(ScreenManager *manager, DisplayOLED *display, SpeakerPWM *buzzer, Buttons *buttons, Sensor *sensor);
-	~ScreenMain();
 	void init();
 	void tick();
 private:

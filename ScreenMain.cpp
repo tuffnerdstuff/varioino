@@ -41,10 +41,6 @@ void ScreenMain::tick() {
 	}
 }
 
-ScreenMain::~ScreenMain() {
-	// TODO Auto-generated destructor stub
-}
-
 void ScreenMain::renderValues(float vario, float altitude, float temp)
 {
 

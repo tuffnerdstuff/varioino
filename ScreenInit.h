@@ -9,7 +9,6 @@ class ScreenInit: public Screen
 {
     public:
         ScreenInit(ScreenManager *manager, DisplayOLED *display);
-        ~ScreenInit();
         void init();
         void tick();
     private:

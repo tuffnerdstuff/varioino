@@ -18,7 +18,6 @@
 class ScreenOptions: public Screen {
 public:
 	ScreenOptions(ScreenManager *manager, DisplayOLED *display, SpeakerPWM *buzzer, Buttons *buttons, Sensor *sensor);
-	virtual ~ScreenOptions();
 	void init();
 	void tick();
 private:

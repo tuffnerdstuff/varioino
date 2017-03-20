@@ -7,6 +7,10 @@
 
 #include "ScreenOptions.h"
 
+#define INDEX_RESET 0
+#define INDEX_VOLUME 1
+#define INDEX_EXIT 2
+
 #define BAR_HEIGHT 11
 #define BAR_PADDING 2
 #define MARGIN 5
@@ -18,10 +22,6 @@ ScreenOptions::ScreenOptions(ScreenManager *manager, DisplayOLED *display, Speak
 	this->buttons = buttons;
 	this->sensor = sensor;
 
-}
-
-ScreenOptions::~ScreenOptions() {
-	// TODO Auto-generated destructor stub
 }
 
 void ScreenOptions::init() {
@@ -52,14 +52,13 @@ void ScreenOptions::tick() {
     {
     	switch(selectedIndex)
     	{
-    	case 0:
+    	case INDEX_RESET:
     		sensor->setAltitudeReference();
     		manager->setScreen(ScreenManager::MAIN);
     		break;
-    	case 1:
+    	case INDEX_VOLUME:
     		break;
-    	case 2:
-
+    	case INDEX_EXIT:
     		manager->setScreen(ScreenManager::MAIN);
     		break;
 
