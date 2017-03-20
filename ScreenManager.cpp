@@ -2,6 +2,7 @@
 #include "ScreenInit.h"
 #include "ScreenMain.h"
 #include "ScreenOptions.h"
+#include "ScreenVolume.h"
 
 ScreenManager::ScreenManager(DisplayOLED *display, SpeakerPWM *buzzer, Buttons *buttons, Sensor *sensor)
 {
@@ -41,6 +42,8 @@ void ScreenManager::setScreen(ScreenEnum newScreen)
         case OPT:
         	this->screen = new ScreenOptions(this, display, buzzer, buttons, sensor);
 			break;
+        case VOL:
+        	this->screen = new ScreenVolume(this, display, buzzer, buttons);
     }
     
 

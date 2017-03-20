@@ -57,6 +57,7 @@ void ScreenOptions::tick() {
     		manager->setScreen(ScreenManager::MAIN);
     		break;
     	case INDEX_VOLUME:
+    		manager->setScreen(ScreenManager::VOL);
     		break;
     	case INDEX_EXIT:
     		manager->setScreen(ScreenManager::MAIN);
