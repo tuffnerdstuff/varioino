@@ -32,6 +32,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>MemoryFree</name>
+			<type>2</type>
+			<location>/home/stefan/Development/arduino/MemoryFree</location>
+		</link>
+		<link>
 			<name>core/core</name>
 			<type>2</type>
 			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/arduino/hardware/avr/1.6.17/cores/arduino</locationURI>
@@ -60,6 +65,11 @@
 			<name>libraries/SparkFun_BME280_Arduino_Library</name>
 			<type>2</type>
 			<location>/home/stefan/Arduino/libraries/SparkFun_BME280_Arduino_Library</location>
+		</link>
+		<link>
+			<name>libraries/U8g2</name>
+			<type>2</type>
+			<location>/home/stefan/Arduino/libraries/U8g2</location>
 		</link>
 		<link>
 			<name>libraries/Wire</name>

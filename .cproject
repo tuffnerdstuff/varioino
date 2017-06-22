@@ -21,7 +21,6 @@
 								<option id="io.sloeber.compiler.cpp.sketch.option.incpath.577773835" name="Include Paths (-I)" superClass="io.sloeber.compiler.cpp.sketch.option.incpath" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/core/core}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/core/variant}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/varioino}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/toneAC}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/Wire}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/Wire/src}&quot;"/>
@@ -32,6 +31,9 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/SPI/src}&quot;"/>
 									<listOptionValue builtIn="false" value="/usr/include/freetype2"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/Adafruit-GFX-Library-master}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/MemoryFree}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/U8g2}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/U8g2/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.cpp.sketch.input.1664086104" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
 							</tool>
@@ -39,7 +41,6 @@
 								<option id="io.sloeber.compiler.c.sketch.option.incpath.802955258" name="Include Paths (-I)" superClass="io.sloeber.compiler.c.sketch.option.incpath" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/core/core}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/core/variant}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/varioino}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/toneAC}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/Wire}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/Wire/src}&quot;"/>
@@ -50,6 +51,9 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/SPI/src}&quot;"/>
 									<listOptionValue builtIn="false" value="/usr/include/freetype2"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/Adafruit-GFX-Library-master}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/MemoryFree}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/U8g2}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/U8g2/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.c.sketch.input.226876215" name="C Source Files" superClass="io.sloeber.compiler.c.sketch.input"/>
 							</tool>
@@ -57,7 +61,6 @@
 								<option id="io.sloeber.compiler.asm.sketch.option.incpath.77258242" name="Include Paths (-I)" superClass="io.sloeber.compiler.asm.sketch.option.incpath" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/core/core}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/core/variant}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/varioino}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/toneAC}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/Wire}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/Wire/src}&quot;"/>
@@ -68,6 +71,9 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/SPI/src}&quot;"/>
 									<listOptionValue builtIn="false" value="/usr/include/freetype2"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/Adafruit-GFX-Library-master}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/MemoryFree}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/U8g2}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Varioino/libraries/U8g2/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.S.sketch.input.607369921" name="Assembly source files" superClass="io.sloeber.compiler.S.sketch.input"/>
 							</tool>
@@ -93,4 +99,5 @@
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="refreshScope"/>
 </cproject>

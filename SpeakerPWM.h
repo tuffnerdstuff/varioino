@@ -8,6 +8,8 @@ class SpeakerPWM
     void setMelody(int *tones);
     void setTone(unsigned int freq, unsigned int length);
     void tick();
+    int getVolume();
+    void setVolume(int vol);
 
     private:
     int tonesCount = 13;
@@ -16,6 +18,7 @@ class SpeakerPWM
     unsigned long toneStartTime = 0;
     bool firstToneTick = true;
     int toneIndex = 0;
+    int volume = 10;
 
 	void reset();
 	bool isPlaying();

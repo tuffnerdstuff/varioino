@@ -2,7 +2,7 @@
 #include "Arduino.h"
 // MAIN
 #include <stdint.h>
-#include "FloatFilterMovingAverage.h"
+//#include "FloatFilterMovingAverage.h"
 #include "FloatFilterWeighed.h"
 // I2C
 #include "Wire.h"
@@ -11,10 +11,10 @@
 
 #include "DisplayOLED.h"
 // SCREEN MANAGER
-
-
 #include "ScreenManager.h"
 #include "SpeakerPWM.h"
+// Free Memory
+#include "MemoryFree.h"
 
 #define DELAY_INIT 10
 #define DELAY_LOOP 10L
@@ -48,6 +48,9 @@ void loop() {
 	buttons->tick();
 	buzzer->tick();
 	scrMan->tick();
+
+	//Serial.print("freeMemory()=");
+	//Serial.println(freeMemory());
 
 	//delay(DELAY_LOOP);
 

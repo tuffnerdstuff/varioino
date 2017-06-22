@@ -65,6 +65,13 @@ void SpeakerPWM::tick()
   
 }
 
+int SpeakerPWM::getVolume() {
+	return volume;
+}
+
+void SpeakerPWM::setVolume(int vol) {
+	volume = vol;
+}
 /*void VarioRendererBuzzer::renderValues(float vario, float altitude, float temp, long renderDelay)
 {
 

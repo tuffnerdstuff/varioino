@@ -10,3 +10,5 @@
 *.elf
 *.hex
 /arduino.ar
+/FreeMemory/
+/MemoryFree/
