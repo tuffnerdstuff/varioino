@@ -1,8 +1,7 @@
 #ifndef VARIORENDEREROLED_H
 #define VARIORENDEREROLED_H
 
-#include "Adafruit_GFX.h"
-#include "Adafruit_SSD1306.h"
+#include "U8g2lib.h"
 
 class DisplayOLED
 {
@@ -22,7 +21,7 @@ class DisplayOLED
 
     
     private:
-    Adafruit_SSD1306 *display;
+    U8X8_SSD1306_128X64_NONAME_HW_I2C *display;
     
 };
 

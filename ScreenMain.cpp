@@ -1,8 +1,9 @@
 #include "ScreenMain.h"
 #include "utilities.h"
+#include "MemoryFree.h"
 
 #define BEEP_MIN_VARIO 0.3F
-#define OLED_VALUELEN 9
+#define OLED_VALUELEN 8
 #define OLED_BARWIDTH 25
 #define OLED_PADDING 5
 #define OLED_MAXVARIO 2
@@ -17,7 +18,7 @@ ScreenMain::ScreenMain(ScreenManager *manager, DisplayOLED *display, SpeakerPWM 
 }
 
 void ScreenMain::init() {
-
+	display->clearDisplay();
 }
 
 void ScreenMain::tick() {
@@ -26,12 +27,11 @@ void ScreenMain::tick() {
 	if (buttons->isButtonPressed(Buttons::OK) && buttons->isButtonChanged(Buttons::OK))
 	{
 		manager->setScreen(ScreenManager::OPT);
+		return;
 	}
 
 	// Display
-	display->clearDisplay();
 	renderValues(sensor->getVario(), sensor->getRelativeAltitude(), sensor->getTemp());
-	display->drawDisplay();
 
 	// Buzzer
 	if (sensor->getVario() > BEEP_MIN_VARIO)
@@ -52,7 +52,7 @@ void ScreenMain::renderValues(float vario, float altitude, float temp)
   barHeight = barHeight > display->getScreenHeight()/2 ? display->getScreenHeight()/2 : barHeight;
   int barStartY = rising ? display->getScreenHeight()/2 - barHeight  : display->getScreenHeight()/2;
 
-  display->drawRect(0,0,OLED_BARWIDTH-OLED_PADDING,SSD1306_LCDHEIGHT);
+  display->drawRect(0,0,OLED_BARWIDTH-OLED_PADDING,display->getScreenHeight());
   display->drawLine(0,display->getScreenHeight()/2,OLED_BARWIDTH-OLED_PADDING-1,display->getScreenHeight()/2);
   display->fillRect(0,barStartY,OLED_BARWIDTH-OLED_PADDING,barHeight);
 
@@ -64,17 +64,22 @@ void ScreenMain::renderValues(float vario, float altitude, float temp)
   float roundVario = roundNearest(vario,1);
   getFloatString(valueString, OLED_VALUELEN, roundVario, 1);
   sprintf(lineString,"VAR: %s m/s", valueString);
-  display->printString(lineString, OLED_BARWIDTH, 0, 1, false);
+  display->printString(lineString, 0, 0, 1, false);
 
   // ALTITUDE
   getFloatString(valueString, OLED_VALUELEN, altitude, 1);
   sprintf(lineString,"ALT: %s m", valueString);
-  display->printString(lineString, OLED_BARWIDTH, 28, 1, false);
+  display->printString(lineString, 0, 1, 1, false);
 
   // TEMPERATURE
   getFloatString(valueString, OLED_VALUELEN, temp, 1);
-  sprintf(lineString,"TMP: %s %cC", valueString, (char)247);
-  display->printString(lineString, OLED_BARWIDTH, 57, 1, false);
+  sprintf(lineString,"TMP: %s °", valueString);
+  display->printString(lineString, 0, 2, 1, false);
+
+  // Free Mem
+  getFloatString(valueString, OLED_VALUELEN, freeMemory(), 1);
+  sprintf(lineString,"MEM: %s b", valueString);
+  display->printString(lineString, 0, 3, 1, false);
 
 }
 

@@ -11,9 +11,9 @@
 #define INDEX_VOLUME 1
 #define INDEX_EXIT 2
 
-#define BAR_HEIGHT 11
-#define BAR_PADDING 2
-#define MARGIN 5
+#define BAR_HEIGHT 1
+#define BAR_PADDING 0
+#define MARGIN 0
 
 ScreenOptions::ScreenOptions(ScreenManager *manager, DisplayOLED *display, SpeakerPWM *buzzer, Buttons *buttons, Sensor *sensor) {
 	this->manager = manager;
@@ -25,6 +25,7 @@ ScreenOptions::ScreenOptions(ScreenManager *manager, DisplayOLED *display, Speak
 }
 
 void ScreenOptions::init() {
+	display->clearDisplay();
 }
 
 void ScreenOptions::tick() {
@@ -64,10 +65,10 @@ void ScreenOptions::tick() {
     		break;
 
     	}
+		return; // Prevent redraw as we are changing screens
     }
 
 	// Draw
-	display->clearDisplay();
 	for (int i = 0; i < entriesLength; ++i) {
 		int x = MARGIN;
 		int y = MARGIN + i*BAR_HEIGHT;
@@ -77,5 +78,4 @@ void ScreenOptions::tick() {
 		}
 		display->printString(entries[i], x,y,1,isHighlighted);
 	}
-	display->drawDisplay();
 }
