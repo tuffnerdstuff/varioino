@@ -38,7 +38,9 @@ void ScreenMain::tick() {
 	{
 		unsigned int freq = 690 + (150 * sensor->getVario());
 		unsigned int length = 100 - (50 * (sensor->getVario() - BEEP_MIN_VARIO) );
-		buzzer->setTone(freq, length);
+		unsigned int tones[2] = {freq,0};
+		unsigned int toneLengths[2] = {length,length};
+		buzzer->setMelody(2, tones, toneLengths);
 	}
 }
 
