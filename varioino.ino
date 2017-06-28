@@ -8,6 +8,9 @@
 #include "Wire.h"
 // OLED
 #include "SparkFunBME280.h"
+// Sensor
+#include "Sensor.h"
+#include "SensorBME280.h"
 
 #include "DisplayOLED.h"
 // SCREEN MANAGER
@@ -29,7 +32,7 @@ void setup() {
   // Init
   delay(DELAY_INIT);
 
-  sensor = new Sensor();
+  sensor = new SensorBME280();
   buttons = new Buttons();
   display = new DisplayOLED();
   buzzer = new SpeakerPWM();

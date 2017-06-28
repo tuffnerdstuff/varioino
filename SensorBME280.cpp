@@ -5,12 +5,12 @@
  *      Author: stefan
  */
 
-#include "Sensor.h"
+#include "SensorBME280.h"
 
 #define FILTER_SAMPLES 50
 #define VARIO_SAMPLE_TIME 250L
 
-Sensor::Sensor() {
+SensorBME280::SensorBME280() {
 
 	/*********
 	 * SENSOR
@@ -49,18 +49,18 @@ Sensor::Sensor() {
 
 }
 
-Sensor::~Sensor() {
+SensorBME280::~SensorBME280() {
 	delete sensor;
 	delete buffAlt;
 	delete buffTemp;
 }
 
-unsigned long Sensor::getVarioSampleTime()
+unsigned long SensorBME280::getVarioSampleTime()
 {
 	return VARIO_SAMPLE_TIME;
 }
 
-void Sensor::tick() {
+void SensorBME280::tick() {
 
 
 	// Push new sensor reading into filter
@@ -89,22 +89,22 @@ void Sensor::tick() {
 
 }
 
-float Sensor::getAltitude() {
+float SensorBME280::getAltitude() {
 	return buffAlt->getFilteredValue();
 }
 
-void Sensor::setAltitudeReference() {
+void SensorBME280::setAltitudeReference() {
 	altitudeRef = buffAlt->getFilteredValue();
 }
 
-float Sensor::getVario() {
+float SensorBME280::getVario() {
 	return currVario;
 }
 
-float Sensor::getRelativeAltitude() {
+float SensorBME280::getRelativeAltitude() {
 	return getAltitude() - altitudeRef;
 }
 
-float Sensor::getTemp() {
+float SensorBME280::getTemp() {
 	return buffTemp->getFilteredValue();
 }
