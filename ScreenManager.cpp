@@ -34,7 +34,7 @@ void ScreenManager::setScreen(ScreenEnum newScreen)
     switch(newScreen)
     {
         case INIT:
-            this->screen = new ScreenInit(this, display);
+            this->screen = new ScreenInit(this, display, buzzer);
             break;
         case MAIN:
             this->screen = new ScreenMain(this, display, buzzer, buttons, sensor);

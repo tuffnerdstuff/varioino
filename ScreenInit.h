@@ -8,12 +8,13 @@
 class ScreenInit: public Screen
 {
     public:
-        ScreenInit(ScreenManager *manager, DisplayOLED *display);
+        ScreenInit(ScreenManager *manager, DisplayOLED *display, SpeakerPWM *buzzer);
         void init();
         void tick();
     private:
         ScreenManager *manager;
         DisplayOLED *display;
+        SpeakerPWM *buzzer;
         unsigned long startTime;
 };
 

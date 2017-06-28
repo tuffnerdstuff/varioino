@@ -10,8 +10,18 @@ void SpeakerPWM::init()
   // Buzzer's always ready to buzz :)
 }
 
-void SpeakerPWM::setMelody(int* tones) {
-	// TODO: implement setMelody
+void SpeakerPWM::setMelody(unsigned int tonesCount, unsigned int* tones, unsigned int* toneLengths) {
+
+	if (!isPlaying())
+	{
+		for (int i = 0; i < tonesCount; ++i) {
+			this->tones[i]=tones[i];
+			this->toneLengths[i]=toneLengths[i];
+		}
+		this->tonesCount = tonesCount;
+		reset();
+	}
+
 }
 
 void SpeakerPWM::reset() {
@@ -32,7 +42,7 @@ void SpeakerPWM::setTone(unsigned int freq, unsigned int length) {
 }
 
 bool SpeakerPWM::isPlaying() {
-	return toneIndex >= 0 && toneIndex < tonesCount;
+	return toneIndex >= 0 && toneIndex < tonesCount && toneIndex < MAX_TONES;
 }
 
 void SpeakerPWM::tick()
