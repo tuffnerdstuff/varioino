@@ -11,6 +11,7 @@
 
 class Sensor {
 public:
+	virtual ~Sensor(){};
 	virtual void tick()=0;
 	virtual float getAltitude()=0;
 	virtual float getRelativeAltitude()=0;
