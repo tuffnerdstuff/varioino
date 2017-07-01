@@ -11,20 +11,19 @@
 #define VARIO_SAMPLE_TIME 250L
 #define ALT_MIN 0
 #define ALT_MAX 100
-#define VARIO_MIN 1.3
-#define VARIO_MAX 20
-#define VARIO_INC 0.6
-#define TEMP_MIN 21.5
+#define VARIO_UPDATE_DELAY 5000
+#define TEMP_MSL 21.5
 #define DIR_UP 1
 #define DIR_DOWN -1
 
 SensorSimulator::SensorSimulator() {
 	this->currAlt = ALT_MIN;
-	this->currTemp = TEMP_MIN;
-	this->currVario = VARIO_MIN;
+	this->currTemp = TEMP_MSL;
 	this->direction = DIR_UP;
 	this->firstTickDone = false;
 	this->lastTickTime = 0;
+	this->lastVarioTime = 0;
+	this->varioIndex = 1;
 }
 
 SensorSimulator::~SensorSimulator() {
@@ -34,15 +33,26 @@ SensorSimulator::~SensorSimulator() {
 void SensorSimulator::tick() {
 
 	unsigned long now = millis();
+	unsigned long timeDelta = now - this->lastTickTime;
 
 	if (!this->firstTickDone)
 	{
 
 		this->firstTickDone = true;
+		this->lastVarioTime = now;
 	}
 	else
 	{
-		float altDelta = this->direction * (this->currVario / 1000.0) * (now - this->lastTickTime);
+		// Change vario
+		if(now - this->lastVarioTime > VARIO_UPDATE_DELAY)
+		{
+			this->varioIndex = (this->varioIndex + 1) % this->varioValuesCount;
+			this->lastVarioTime = now;
+		}
+
+
+		// Change altitude
+		float altDelta = this->direction * (this->getVario() / 1000.0) * timeDelta;
 		float newAlt = this->currAlt + altDelta;
 
 		if (newAlt > ALT_MAX)
@@ -56,7 +66,7 @@ void SensorSimulator::tick() {
 		else
 		{
 			this->currAlt = newAlt;
-			this->currTemp = TEMP_MIN - (0.006 * this->currAlt);
+			this->currTemp = TEMP_MSL - (0.006 * this->currAlt);
 		}
 	}
 
@@ -78,7 +88,7 @@ void SensorSimulator::setAltitudeReference() {
 }
 
 float SensorSimulator::getVario() {
-	return this->currVario;
+	return this->varioValues[varioIndex];
 }
 
 unsigned long SensorSimulator::getVarioSampleTime() {

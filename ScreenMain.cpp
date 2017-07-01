@@ -3,6 +3,7 @@
 #include "MemoryFree.h"
 
 #define BEEP_MIN_VARIO 0.3F
+#define BEEP_MAX_GAP 500
 #define OLED_VALUELEN 8
 #define OLED_BARWIDTH 25
 #define OLED_PADDING 5
@@ -34,10 +35,11 @@ void ScreenMain::tick() {
 	renderValues(sensor->getVario(), sensor->getRelativeAltitude(), sensor->getTemp());
 
 	// Buzzer
-	if (sensor->getVario() > BEEP_MIN_VARIO)
+	if (sensor->getVario() >= BEEP_MIN_VARIO)
 	{
 		unsigned int freq = 690 + (150 * sensor->getVario());
-		unsigned int length = 100 - (50 * (sensor->getVario() - BEEP_MIN_VARIO) );
+		unsigned int length = BEEP_MAX_GAP * (BEEP_MIN_VARIO / sensor->getVario());
+		//unsigned int length = 0;
 		unsigned int tones[2] = {freq,0};
 		unsigned int toneLengths[2] = {length,length};
 		buzzer->setMelody(2, tones, toneLengths);

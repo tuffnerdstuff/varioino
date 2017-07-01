@@ -2,19 +2,19 @@
 
 #include "toneAC.h"
 
-#define TONE_VOL 10
-#define TICK_LENGTH 200
+#define TONE_VOL 3
 
 void SpeakerPWM::init()
 {
-  // Buzzer's always ready to buzz :)
+	pinMode(LED_BUILTIN, OUTPUT);
+	digitalWrite(LED_BUILTIN, LOW);
 }
 
 void SpeakerPWM::setMelody(unsigned int tonesCount, unsigned int* tones, unsigned int* toneLengths) {
 
-	if (!isPlaying())
+	if (!isPlaying()&&tonesCount <= MAX_TONES)
 	{
-		for (int i = 0; i < tonesCount; ++i) {
+		for (unsigned int i = 0; i < tonesCount; ++i) {
 			this->tones[i]=tones[i];
 			this->toneLengths[i]=toneLengths[i];
 		}
@@ -26,7 +26,7 @@ void SpeakerPWM::setMelody(unsigned int tonesCount, unsigned int* tones, unsigne
 
 void SpeakerPWM::reset() {
 	toneStartTime = 0;
-	firstToneTick = true;
+	firstToneTick = false;
 	toneIndex = 0;
 }
 
@@ -48,11 +48,40 @@ bool SpeakerPWM::isPlaying() {
 void SpeakerPWM::tick()
 {
 	if (isPlaying())
-  {
+	{
+		if (!firstToneTick) // Start current tone
+		{
+			toneStartTime = millis();
+			firstToneTick = true;
+			if (tones[toneIndex] > 0)
+			{
+				toneAC(tones[toneIndex], TONE_VOL, 0, true);
+				digitalWrite(LED_BUILTIN, HIGH); // LED ON
+			}
+			else
+			{
+				noToneAC();
+				digitalWrite(LED_BUILTIN, LOW); // LED OFF
+			}
+		}
+		else if(millis() - toneStartTime >= toneLengths[toneIndex]) // current tone done
+		{
+			digitalWrite(LED_BUILTIN, LOW); // LED OFF
+			noToneAC();
+			firstToneTick = false;
+			toneIndex++;
+		}
+
+
+
+
+
+		/*
 	  if (!firstToneTick && millis() - toneStartTime >= toneLengths[toneIndex])
 	  {
 		  // tone end = next tone
 		  noToneAC();
+		  digitalWrite(LED_BUILTIN, LOW);
 		  firstToneTick = true;
 		  toneIndex++;
 	  }
@@ -63,13 +92,16 @@ void SpeakerPWM::tick()
 			  // reset tone start time
 			  toneStartTime = millis();
 			  firstToneTick = false;
+
+			  // continue current tone
+			  if (tones[toneIndex] > 0)
+			  {
+				  toneAC(tones[toneIndex], TONE_VOL, TICK_LENGTH, true);
+				  digitalWrite(LED_BUILTIN, HIGH);
+			  }
 		  }
-		  // continue current tone
-		  if (tones[toneIndex] > 0)
-		  {
-			  toneAC(tones[toneIndex], TONE_VOL, TICK_LENGTH, true);
-		  }
-	  }
+
+	  }*/
   }
 
   

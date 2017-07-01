@@ -1,7 +1,7 @@
 #ifndef VARIORENDERERBUZZER_H
 #define VARIORENDERERBUZZER_H
 
-#define MAX_TONES 13
+#define MAX_TONES 15
 
 class SpeakerPWM
 {
@@ -12,18 +12,18 @@ class SpeakerPWM
     void tick();
     int getVolume();
     void setVolume(int vol);
+	bool isPlaying();
 
     private:
     int tonesCount = 0;
     unsigned int tones[MAX_TONES];
     unsigned int toneLengths[MAX_TONES];
     unsigned long toneStartTime = 0;
-    bool firstToneTick = true;
-    int toneIndex = 0;
-    int volume = 10;
+    bool firstToneTick = false;
+    int toneIndex = MAX_TONES;
+    int volume = 1;
 
 	void reset();
-	bool isPlaying();
 };
 
 #endif

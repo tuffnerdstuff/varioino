@@ -23,12 +23,15 @@ public:
 	float getTemp();
 
 private:
-	float currVario;
 	float currTemp;
 	float currAlt;
 	int direction;
 	bool firstTickDone;
 	unsigned long lastTickTime;
+	int varioValuesCount = 12;
+	float varioValues[12] = {0,0.1,0.3,0.5,0.9,1.5,2,3,4,8,16,999};
+	int varioIndex;
+	unsigned long lastVarioTime;
 };
 
 #endif /* SENSORSIMULATOR_H_ */

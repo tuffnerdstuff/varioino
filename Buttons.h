@@ -13,7 +13,7 @@
 
 #define BUTTON_LEFT 11
 #define BUTTON_RIGHT 12
-#define BUTTON_OK 13
+#define BUTTON_OK 7
 
 class Buttons {
 public:

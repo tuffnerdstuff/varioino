@@ -15,7 +15,6 @@ class ScreenInit: public Screen
         ScreenManager *manager;
         DisplayOLED *display;
         SpeakerPWM *buzzer;
-        unsigned long startTime;
 };
 
 #endif
