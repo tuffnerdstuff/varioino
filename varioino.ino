@@ -33,8 +33,8 @@ void setup() {
   // Init
   delay(DELAY_INIT);
 
-  sensor = new SensorSimulator();
-  //sensor = new SensorBME280();
+  //sensor = new SensorSimulator();
+  sensor = new SensorBME280();
   buttons = new Buttons();
   display = new DisplayOLED();
   buzzer = new SpeakerPWM();

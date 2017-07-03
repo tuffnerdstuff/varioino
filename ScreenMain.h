@@ -18,15 +18,18 @@
 class ScreenMain: public Screen {
 public:
 	ScreenMain(ScreenManager *manager, DisplayOLED *display, SpeakerPWM *buzzer, Buttons *buttons, Sensor *sensor);
+	virtual ~ScreenMain(){};
 	void init();
 	void tick();
-private:
+protected:
+	virtual void renderValues()=0;
+	virtual void onLeftButtonPressed()=0;
+	virtual void onRightButtonPressed()=0;
 	ScreenManager *manager;
 	DisplayOLED *display;
 	SpeakerPWM *buzzer;
 	Buttons *buttons;
 	Sensor *sensor;
-	void renderValues(float vario, float altitude, float temp);
 };
 
 #endif /* SCREENMAIN_H_ */

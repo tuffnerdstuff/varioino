@@ -2,7 +2,7 @@
 
 #include "toneAC.h"
 
-#define TONE_VOL 3
+#define TONE_VOL 2
 
 void SpeakerPWM::init()
 {

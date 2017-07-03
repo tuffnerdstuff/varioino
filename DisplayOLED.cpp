@@ -9,8 +9,13 @@
 #define OLED_RESET 4
 #define OLED_ADDRESS 0x3C
 
+#define ICON_UP {B00010000,B00110000,B01110000,B11111111,B11111111,B01110000,B00110000,B00010000}
+
 DisplayOLED::DisplayOLED()
 {
+	U8X8_SSD1306_128X64_NONAME_HW_I2C u8x8(U8G2_R0, OLED_RESET);
+	display = &u8x8;
+	u8g2_SetI2CAddress(display, OLED_ADDRESS);
 }
 
 DisplayOLED::~DisplayOLED()
@@ -20,9 +25,6 @@ DisplayOLED::~DisplayOLED()
 
 void DisplayOLED::init()
 {
-	U8X8_SSD1306_128X64_NONAME_HW_I2C u8x8(U8G2_R0, OLED_RESET);
-	display = &u8x8;
-	u8g2_SetI2CAddress(display, OLED_ADDRESS);
 	display->begin();
     
 }
@@ -56,8 +58,15 @@ void DisplayOLED::printString(const char text[], int x, int y,
 		display->setInverseFont(0);
 	}
 
-	display->setFont(u8x8_font_pxplusibmcga_r);
-	display->drawUTF8(x, y, text);
+	display->setFont(u8x8_font_pxplusibmcga_f);
+	if (size > 1)
+	{
+		display->draw2x2UTF8(x, y, text);
+	}
+	else
+	{
+		display->drawUTF8(x, y, text);
+	}
 
 }
 
@@ -76,4 +85,9 @@ void DisplayOLED::drawLine(int x0, int y0, int x1, int y1) {
 }
 
 void DisplayOLED::fillRect(int x, int y, int w, int h) {
+}
+
+void DisplayOLED::printIcon(Icon icon, int x, int y, unsigned int size) {
+	uint8_t tile[8] = ICON_UP;
+	display->drawTile(x, y, 1, tile);
 }

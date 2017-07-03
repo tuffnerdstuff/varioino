@@ -9,9 +9,9 @@
 #include "Arduino.h"
 
 #define VARIO_SAMPLE_TIME 250L
-#define ALT_MIN 0
-#define ALT_MAX 100
-#define VARIO_UPDATE_DELAY 5000
+#define ALT_MIN 1000
+#define ALT_MAX ALT_MIN+100
+#define VARIO_UPDATE_DELAY 3000
 #define TEMP_MSL 21.5
 #define DIR_UP 1
 #define DIR_DOWN -1
@@ -52,7 +52,7 @@ void SensorSimulator::tick() {
 
 
 		// Change altitude
-		float altDelta = this->direction * (this->getVario() / 1000.0) * timeDelta;
+		float altDelta = (this->getVario() / 1000.0) * timeDelta;
 		float newAlt = this->currAlt + altDelta;
 
 		if (newAlt > ALT_MAX)
@@ -88,7 +88,7 @@ void SensorSimulator::setAltitudeReference() {
 }
 
 float SensorSimulator::getVario() {
-	return this->varioValues[varioIndex];
+	return this->varioValues[varioIndex] * this->direction;
 }
 
 unsigned long SensorSimulator::getVarioSampleTime() {

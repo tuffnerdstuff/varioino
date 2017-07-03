@@ -18,7 +18,7 @@ class ScreenManager
         unsigned long lastScreenChangeTime = 0;
         
     public:
-        enum ScreenEnum {INIT, MAIN, OPT, VOL};
+        enum ScreenEnum {INIT, VARIO, OPT, VOL, TEMP, ALT};
     
         ScreenManager(DisplayOLED *display, SpeakerPWM *buzzer, Buttons *buttons, Sensor *sensor);
         ~ScreenManager();

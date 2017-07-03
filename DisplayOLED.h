@@ -3,9 +3,13 @@
 
 #include "U8g2lib.h"
 
+
+
 class DisplayOLED
 {
     public:
+    enum Icon {UP, DOWN};
+
 	DisplayOLED();
     ~DisplayOLED();
     void init();
@@ -16,8 +20,10 @@ class DisplayOLED
     void drawRect(int x, int y, int w, int h);
     void drawLine(int x0, int y0, int x1, int y1);
     void fillRect(int x, int y, int w, int h);
+    void printIcon(Icon icon, int x, int y, unsigned int size);
     int getScreenHeight();
     int getScreenWidth();
+
 
     
     private:

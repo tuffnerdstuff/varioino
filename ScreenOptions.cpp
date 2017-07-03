@@ -55,13 +55,13 @@ void ScreenOptions::tick() {
     	{
     	case INDEX_RESET:
     		sensor->setAltitudeReference();
-    		manager->setScreen(ScreenManager::MAIN);
+    		manager->setScreen(ScreenManager::VARIO);
     		break;
     	case INDEX_VOLUME:
     		manager->setScreen(ScreenManager::VOL);
     		break;
     	case INDEX_EXIT:
-    		manager->setScreen(ScreenManager::MAIN);
+    		manager->setScreen(ScreenManager::VARIO);
     		break;
 
     	}

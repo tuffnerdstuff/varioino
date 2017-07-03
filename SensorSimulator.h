@@ -29,7 +29,7 @@ private:
 	bool firstTickDone;
 	unsigned long lastTickTime;
 	int varioValuesCount = 12;
-	float varioValues[12] = {0,0.1,0.3,0.5,0.9,1.5,2,3,4,8,16,999};
+	float varioValues[12] = {0,0.1,0.3,0.5,0.9,1.5,2,3,4,8,16,32};
 	int varioIndex;
 	unsigned long lastVarioTime;
 };

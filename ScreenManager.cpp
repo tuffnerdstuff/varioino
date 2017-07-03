@@ -1,6 +1,8 @@
 #include "ScreenManager.h"
 #include "ScreenInit.h"
-#include "ScreenMain.h"
+#include "ScreenMainVario.h"
+#include "ScreenMainTemp.h"
+#include "ScreenMainAlt.h"
 #include "ScreenOptions.h"
 #include "ScreenVolume.h"
 
@@ -36,9 +38,15 @@ void ScreenManager::setScreen(ScreenEnum newScreen)
         case INIT:
             this->screen = new ScreenInit(this, display, buzzer);
             break;
-        case MAIN:
-            this->screen = new ScreenMain(this, display, buzzer, buttons, sensor);
+        case VARIO:
+            this->screen = new ScreenMainVario(this, display, buzzer, buttons, sensor);
             break;
+        case TEMP:
+			this->screen = new ScreenMainTemp(this, display, buzzer, buttons, sensor);
+			break;
+        case ALT:
+			this->screen = new ScreenMainAlt(this, display, buzzer, buttons, sensor);
+			break;
         case OPT:
         	this->screen = new ScreenOptions(this, display, buzzer, buttons, sensor);
 			break;

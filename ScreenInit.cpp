@@ -39,6 +39,6 @@ void ScreenInit::tick( )
 {
     if (!buzzer->isPlaying())
 	{
-    	manager->setScreen(ScreenManager::MAIN);
+    	manager->setScreen(ScreenManager::VARIO);
 	}
 }
