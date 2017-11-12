@@ -1,7 +1,8 @@
 #include "FloatFilterWeighed.h"
 
-FloatFilterWeighed::FloatFilterWeighed(float currValWeight) {
+FloatFilterWeighed::FloatFilterWeighed(float currValWeight, float initValue) {
 	this->currValWeight = currValWeight;
+	this->currValue = initValue;
 }
 
 void FloatFilterWeighed::pushValue(float value)

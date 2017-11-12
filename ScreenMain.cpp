@@ -1,6 +1,6 @@
 #include "ScreenMain.h"
 
-#define BEEP_RISE_VARIO 0.3F
+#define BEEP_RISE_VARIO 0.5F
 #define BEEP_MAX_GAP 500
 #define BEEP_SINK_FREQ 250
 #define BEEP_SINK_VARIO -1.5F

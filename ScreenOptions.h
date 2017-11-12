@@ -26,7 +26,7 @@ private:
 	SpeakerPWM *buzzer;
 	Buttons *buttons;
 	Sensor *sensor;
-	char* entries[3] = {"Reset Altitude", "Volume", "Exit"};
+	char* entries[3] = {"Reset Altitude  ", "Volume          ", "Exit            "};
 	int entriesLength = 3;
 	int selectedIndex = 0;
 

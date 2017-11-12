@@ -20,8 +20,6 @@
 // Free Memory
 #include "MemoryFree.h"
 
-#define DELAY_INIT 10
-#define DELAY_LOOP 10L
 DisplayOLED *display;
 SpeakerPWM *buzzer;
 Buttons *buttons;
@@ -30,20 +28,17 @@ ScreenManager *scrMan;
 
 void setup() {
 
-  // Init
-  delay(DELAY_INIT);
-
-  //sensor = new SensorSimulator();
-  sensor = new SensorBME280();
-  buttons = new Buttons();
-  display = new DisplayOLED();
-  buzzer = new SpeakerPWM();
-  scrMan = new ScreenManager(display,buzzer,buttons,sensor);
+	//sensor = new SensorSimulator();
+	sensor = new SensorBME280();
+	buttons = new Buttons();
+	display = new DisplayOLED();
+	buzzer = new SpeakerPWM();
+	scrMan = new ScreenManager(display,buzzer,buttons,sensor);
 
 
-  display->init();
-  buzzer->init();
-  scrMan->init();
+	display->init();
+	buzzer->init();
+	scrMan->init();
 
 }
 
@@ -54,10 +49,7 @@ void loop() {
 	buzzer->tick();
 	scrMan->tick();
 
-	//Serial.print("freeMemory()=");
-	//Serial.println(freeMemory());
 
-	//delay(DELAY_LOOP);
 
 }
 

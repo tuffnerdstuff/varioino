@@ -2,8 +2,6 @@
 
 #include "toneAC.h"
 
-#define TONE_VOL 2
-
 void SpeakerPWM::init()
 {
 	pinMode(LED_BUILTIN, OUTPUT);
@@ -55,7 +53,7 @@ void SpeakerPWM::tick()
 			firstToneTick = true;
 			if (tones[toneIndex] > 0)
 			{
-				toneAC(tones[toneIndex], TONE_VOL, 0, true);
+				toneAC(tones[toneIndex], volume, 0, true);
 				digitalWrite(LED_BUILTIN, HIGH); // LED ON
 			}
 			else
@@ -112,6 +110,14 @@ int SpeakerPWM::getVolume() {
 }
 
 void SpeakerPWM::setVolume(int vol) {
+	if (vol > MAX_VOL)
+	{
+		vol = MAX_VOL;
+	}
+	else if (vol < MIN_VOL)
+	{
+		vol = MIN_VOL;
+	}
 	volume = vol;
 }
 /*void VarioRendererBuzzer::renderValues(float vario, float altitude, float temp, long renderDelay)

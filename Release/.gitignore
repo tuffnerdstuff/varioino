@@ -1,14 +1,7 @@
+/MemoryFree/
 /core/
 /libraries/
 /makefile
-/objects.mk
 /sources.mk
 /subdir.mk
-/varioino/
-*.d
-*.o
-*.elf
-*.hex
-/arduino.ar
-/FreeMemory/
-/MemoryFree/
+/objects.mk

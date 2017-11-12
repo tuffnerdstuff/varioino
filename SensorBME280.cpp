@@ -29,23 +29,24 @@ SensorBME280::SensorBME280() {
 	//  2, coefficients = 4
 	//  3, coefficients = 8
 	//  4, coefficients = 16
-	sensor->settings.filter = 16;
+	sensor->settings.filter = 4;
 	//  0, skipped
 	//  1 through 5, oversampling *1, *2, *4, *8, *16 respectively
-	sensor->settings.tempOverSample = 1;
+	sensor->settings.tempOverSample = 2;
 	sensor->settings.pressOverSample = 5;
 	sensor->settings.humidOverSample = 0;
 
-	// Initialize sensor
+	// Initialize sensor and wait until ready
+	delay(5);
 	sensor->begin();
-
+	delay(5);
 
 	/*********
 	 * FILTERS
 	 **********/
-	buffAlt = new FloatFilterWeighed(0.1);
+	buffAlt = new FloatFilterWeighed(0.1, sensor->readFloatAltitudeMeters());
 
-	buffTemp = new FloatFilterWeighed(0.025);
+	buffTemp = new FloatFilterWeighed(0.025, sensor->readTempC());
 
 }
 
@@ -83,6 +84,7 @@ void SensorBME280::tick() {
 
 		// Store current time
 		timeOfLastVario = currTime;
+
 	}
 
 

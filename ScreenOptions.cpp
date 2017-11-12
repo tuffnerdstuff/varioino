@@ -69,13 +69,19 @@ void ScreenOptions::tick() {
     }
 
 	// Draw
+
+    // Title
+    display->printString("OPTIONS", 0, 0, 1, false);
+
+    // Items
 	for (int i = 0; i < entriesLength; ++i) {
-		int x = MARGIN;
-		int y = MARGIN + i*BAR_HEIGHT;
+		int x = 0;
+		int y = i+2;
 		bool isHighlighted = i == selectedIndex;
-		if (isHighlighted) {
+		/*if (false && isHighlighted) {
 			display->fillRect(0, y-BAR_PADDING, display->getScreenWidth(), BAR_HEIGHT);
 		}
+		*/
 		display->printString(entries[i], x,y,1,isHighlighted);
 	}
 }

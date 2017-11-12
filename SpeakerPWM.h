@@ -13,6 +13,8 @@ class SpeakerPWM
     int getVolume();
     void setVolume(int vol);
 	bool isPlaying();
+	const static int MAX_VOL = 10;
+	const static int MIN_VOL = 0;
 
     private:
     int tonesCount = 0;

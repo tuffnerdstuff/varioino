@@ -6,7 +6,7 @@
 class FloatFilterWeighed: public FloatFilter
 {
     public:
-	FloatFilterWeighed(float currValWeight);
+	FloatFilterWeighed(float currValWeight, float initValue);
     void pushValue(float value);
     float getFilteredValue();
     bool isReady();
